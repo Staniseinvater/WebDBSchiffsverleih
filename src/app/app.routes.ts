@@ -8,6 +8,7 @@ import { LoginComponent} from "./login/login.component";
 import { RegisterComponent} from "./register/register.component";
 import { RoutenComponent} from "./routen/routen.component";
 import { PreiseComponent} from "./preise/preise.component";
+import { FooterComponent} from "./footer/footer.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
