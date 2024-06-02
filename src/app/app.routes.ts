@@ -6,6 +6,8 @@ import { KalenderComponent } from './kalender/kalender.component';
 import { KontaktComponent } from './kontakt/kontakt.component';
 import { LoginComponent} from "./login/login.component";
 import { RegisterComponent} from "./register/register.component";
+import { RoutenComponent} from "./routen/routen.component";
+import { PreiseComponent} from "./preise/preise.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,5 +16,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'haefen', component: HaefenComponent },
   { path: 'kalender', component: KalenderComponent },
+  { path: 'routen', component: RoutenComponent },
+  { path: 'preise', component: PreiseComponent },
   { path: 'kontakt', component: KontaktComponent }
 ];
