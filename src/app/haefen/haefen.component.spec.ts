@@ -20,6 +20,7 @@ export class HaefenComponent implements OnInit {
   ];
 
   filteredHafens: Hafen[] = [];
+  selectedHafen: Hafen | null = null;
 
   ngOnInit(): void {
     this.filteredHafens = this.hafens;
@@ -28,5 +29,9 @@ export class HaefenComponent implements OnInit {
   onSearch(event: any) {
     const query = event.target.value.toLowerCase();
     this.filteredHafens = this.hafens.filter(hafen => hafen.name.toLowerCase().includes(query));
+  }
+
+  selectHafen(hafen: Hafen): void {
+    this.selectedHafen = hafen;
   }
 }

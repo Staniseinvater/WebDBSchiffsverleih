@@ -48,7 +48,7 @@ export class SchiffeComponent {
           inhalt: 'Kabinen, Küche, Deck',
           bildUrl: 'assets/images/bild1.png',
           hafenId: 1
-        }, 
+        },
         {
           name: 'Schiff 3',
           type: 'Segelboot',
@@ -76,7 +76,6 @@ export class SchiffeComponent {
           bildUrl: 'assets/images/bild1.png',
           hafenId: 1
         }
-
       ]
     },
     {
@@ -89,7 +88,7 @@ export class SchiffeComponent {
           inhalt: 'Restaurants, Kino, Fitnessstudio',
           bildUrl: 'assets/images/schiff3.jpg',
           hafenId: 2
-        },  
+        },
         {
           name: 'Schiff 7',
           type: 'Kreuzfahrtschiff',
@@ -98,8 +97,8 @@ export class SchiffeComponent {
           inhalt: 'Restaurants, Kino, Fitnessstudio',
           bildUrl: 'assets/images/schiff3.jpg',
           hafenId: 2
-        }, 
-         {
+        },
+        {
           name: 'Schiff 8',
           type: 'Kreuzfahrtschiff',
           capacity: 300,
@@ -107,7 +106,7 @@ export class SchiffeComponent {
           inhalt: 'Restaurants, Kino, Fitnessstudio',
           bildUrl: 'assets/images/schiff3.jpg',
           hafenId: 2
-        },
+        }
       ]
     },
     {
@@ -120,7 +119,8 @@ export class SchiffeComponent {
           inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
           bildUrl: 'assets/images/schiff4.jpg',
           hafenId: 3
-        }, {
+        },
+        {
           name: 'Schiff 10',
           type: 'Luxusyacht',
           capacity: 20,
@@ -128,7 +128,8 @@ export class SchiffeComponent {
           inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
           bildUrl: 'assets/images/schiff4.jpg',
           hafenId: 3
-        }, {
+        },
+        {
           name: 'Schiff 11',
           type: 'Luxusyacht',
           capacity: 20,
@@ -139,13 +140,13 @@ export class SchiffeComponent {
         }
       ]
     }
-    // Weitere Häfen und Schiffe hier hinzufügen
   ];
 
   similarHaefen: string[] = [];
   filteredSchiffe: Schiff[] = [];
   searchQuery = ''; // Variable für das Suchfeld
   selectedSchiff: Schiff | null = null; // Hinzugefügt: Variable für das ausgewählte Schiff
+  detailInserted: boolean[] = []; // Array to track if detail view has been inserted for each section
 
   constructor() {
     this.similarHaefen = this.hafens.map(hafen => hafen.name); // Initialisiere similarHaefen mit allen Häfen
@@ -170,21 +171,28 @@ export class SchiffeComponent {
     const selectedHafen = this.hafens.find(hafen => hafen.name === hafenName);
     if (selectedHafen) {
       this.filteredSchiffe = selectedHafen.schiffe || [];
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
     } else {
       this.filteredSchiffe = [];
+      this.detailInserted = [];
     }
     this.similarHaefen = [];
     this.searchQuery = ''; // Zurücksetzen der Suchleiste
   }
 
-  // Hinzugefügt: Methode zum Umschalten der Details
   toggleDetails(schiff: Schiff) {
     if (this.selectedSchiff === schiff) {
       this.selectedSchiff = null;
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
     } else {
       this.selectedSchiff = schiff;
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
     }
+    console.log('Selected Schiff:', this.selectedSchiff); // Debugging-Statement
   }
-  
-  
+
+  setDetailInserted(index: number) {
+    console.log('Detail inserted at index', index); // Debugging-Statement
+    this.detailInserted[index] = true;
+  }
 }

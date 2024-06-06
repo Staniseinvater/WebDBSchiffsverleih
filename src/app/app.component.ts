@@ -7,7 +7,7 @@ import { KalenderComponent } from "./kalender/kalender.component";
 import { SchiffeComponent } from "./schiffe/schiffe.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -22,7 +22,8 @@ import { FormsModule } from '@angular/forms';
     SchiffeComponent,
     LoginComponent,
     RegisterComponent,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
