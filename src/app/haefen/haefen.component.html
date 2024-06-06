@@ -1,2 +1,13 @@
-<h1>Unsere Häfen</h1>
-<p>Hier findest du Informationen zu den Häfen, die wir ansteuern.</p>
+<div class="container">
+  <div class="info-container">
+    <h2>Unsere Häfen</h2>
+    <p>Hier findest du Informationen zu den Häfen, die wir ansteuern.</p>
+    <input type="text" placeholder="Häfen suchen..." (input)="onSearch($event)">
+    <ul>
+      <li *ngFor="let hafen of filteredHafens">{{ hafen.name }}</li>
+    </ul>
+  </div>
+  <div class="globe-container">
+    <div id="globeViz"></div>
+  </div>
+</div>
