@@ -1,36 +1,54 @@
+/* Header Styling */
 header {
   background-color: #005c85; /* Maritime Farbe */
   background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Bereich abdeckt */
   background-position: center; /* Das Bild wird zentriert */
   background-repeat: no-repeat; /* Das Bild wird nicht wiederholt */
-  padding: 20px;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it is above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatten für mehr Tiefe */
 }
 
+/* Navigation Styling */
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Centers the ul horizontally */
   align-items: center;
 }
 
+/* Navigation List Styling */
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center; /* Centers the li items horizontally */
+  gap: 30px; /* Abstand zwischen den Links */
 }
 
+/* Navigation List Item Styling */
 nav ul li {
-  margin-right: 20px;
+  margin: 0; /* Entfernt den rechten Rand */
 }
 
+/* Navigation Link Styling */
 nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
-  transition: all 0.3s ease;
+  padding: 10px 15px; /* Padding für mehr Klickbereich */
+  border-radius: 5px; /* Abgerundete Ecken */
+  transition: all 0.3s ease; /* Glatte Übergänge */
 }
 
+/* Hover Effekt für Navigation Links */
 nav ul li a:hover {
-  color: #ffcc00; /* Akzentfarbe */
+  color: #00b3ff; /* Maritime Farbe als Textfarbe */
+  background-color: #ffffff69; /* Akzentfarbe als Hintergrund */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten beim Hover */
+  transform: translateY(-3px); /* Leichter Lift-Effekt */
 }

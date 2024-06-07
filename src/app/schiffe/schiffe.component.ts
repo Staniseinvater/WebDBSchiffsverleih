@@ -8,7 +8,7 @@ interface Schiff {
   capacity: number;
   preisProNacht: number;
   inhalt: string;
-  bildUrl: string;
+  bildUrls: string[];
   hafenId: number;
 }
 
@@ -37,7 +37,7 @@ export class SchiffeComponent {
           capacity: 10,
           preisProNacht: 200,
           inhalt: 'Luxus-Kabinen, Pool, Bar',
-          bildUrl: 'https://www.br.de/radio/bayern2/sendungen/radiowelt/schiff-114~_v-img__16__9__l_-1dc0e8f74459dd04c91a0d45af4972b9069f1135.jpg?version=9ce41',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png',    'assets/Boot 1 (3).png','assets/Boot 1 (4).png','assets/Boot 1 (5).png',  ],
           hafenId: 1
         },
         {
@@ -46,7 +46,7 @@ export class SchiffeComponent {
           capacity: 8,
           preisProNacht: 150,
           inhalt: 'Kabinen, Küche, Deck',
-          bildUrl: 'assets/images/bild1.png',
+          bildUrls: ['assets/Boot 3 (2).png', 'assets/Boot 3 (1).png','assets/Boot 3 (3).png','assets/Boot 3 (4).png',],
           hafenId: 1
         },
         {
@@ -55,16 +55,16 @@ export class SchiffeComponent {
           capacity: 8,
           preisProNacht: 150,
           inhalt: 'Kabinen, Küche, Deck',
-          bildUrl: 'assets/images/bild1.png',
+          bildUrls: ['assets/Boot 2 (2).png', 'assets/Boot 2 (1).png', 'assets/Boot 2 (3).png', 'assets/Boot 2 (4).png', 'assets/Boot 2 (5).png'],
           hafenId: 1
         },
         {
           name: 'Schiff 4',
           type: 'Segelboot',
-          capacity: 8,
+          capacity: 890,
           preisProNacht: 150,
           inhalt: 'Kabinen, Küche, Deck',
-          bildUrl: 'assets/images/bild1.png',
+          bildUrls: ['assets/Boot 4 (2).png', 'assets/Boot 4 (1).png','assets/Boot 4 (3).png','assets/Boot 4 (4).png','assets/Boot 4 (5).png',],
           hafenId: 1
         },
         {
@@ -73,7 +73,7 @@ export class SchiffeComponent {
           capacity: 8,
           preisProNacht: 150,
           inhalt: 'Kabinen, Küche, Deck',
-          bildUrl: 'assets/images/bild1.png',
+          bildUrls: ['assets/Boot 5 (1).png', 'assets/Boot 4 (2).png','assets/Boot 5 (3).png','assets/Boot 5 (4).png','assets/Boot 5 (5).png', ],
           hafenId: 1
         }
       ]
@@ -86,7 +86,7 @@ export class SchiffeComponent {
           capacity: 300,
           preisProNacht: 400,
           inhalt: 'Restaurants, Kino, Fitnessstudio',
-          bildUrl: 'assets/images/schiff3.jpg',
+          bildUrls: ['assets/Boot 6 (1).png', 'assets/Boot 6 (2).png','assets/Boot 6 (3).png','assets/Boot 6 (4).png','assets/Boot 6 (5).png',],
           hafenId: 2
         },
         {
@@ -95,7 +95,7 @@ export class SchiffeComponent {
           capacity: 300,
           preisProNacht: 400,
           inhalt: 'Restaurants, Kino, Fitnessstudio',
-          bildUrl: 'assets/images/schiff3.jpg',
+          bildUrls: ['assets/Boot 7 (2).png', 'assets/Boot 7 (1).png','assets/Boot 7 (3).png', 'assets/Boot 7 (4).png','assets/Boot 7 (5).png', 'assets/Boot 7 (6).png',],
           hafenId: 2
         },
         {
@@ -104,7 +104,7 @@ export class SchiffeComponent {
           capacity: 300,
           preisProNacht: 400,
           inhalt: 'Restaurants, Kino, Fitnessstudio',
-          bildUrl: 'assets/images/schiff3.jpg',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
           hafenId: 2
         }
       ]
@@ -117,7 +117,7 @@ export class SchiffeComponent {
           capacity: 20,
           preisProNacht: 1000,
           inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
-          bildUrl: 'assets/images/schiff4.jpg',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
           hafenId: 3
         },
         {
@@ -126,7 +126,7 @@ export class SchiffeComponent {
           capacity: 20,
           preisProNacht: 1000,
           inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
-          bildUrl: 'assets/images/schiff4.jpg',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
           hafenId: 3
         },
         {
@@ -135,11 +135,125 @@ export class SchiffeComponent {
           capacity: 20,
           preisProNacht: 1000,
           inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
-          bildUrl: 'assets/images/schiff4.jpg',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
           hafenId: 3
         }
       ]
-    }
+    },
+    {
+      id: 4, name: 'Marina di Prtofino', lat: 44.3038, lon: 9.2101, schiffe: [
+        {
+          name: 'Schiff 12',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 4
+        },
+        {
+          name: 'Schiff 13',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 4
+        },
+        {
+          name: 'Schiff 14',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 4
+        }
+      ]
+    }, {
+      id: 5, name: 'Puerto Banús', lat: 36.4874, lon: -4.9526, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 5
+        }
+      ]
+    }, 
+    {
+      id: 6, name: 'Port Vauban', lat: 43.5804, lon: 7.1282, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 6
+        }
+      ]
+    }, 
+    {
+      id: 7, name: 'Marina del Rey', lat: 33.9777, lon: -118.4351, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 7
+        }
+      ]
+    }, 
+    {
+      id: 8, name: 'Auckland Viaduct Harbour', lat: -36.8435, lon: 174.7633, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 8
+        }
+      ]
+    }, 
+    {
+      id: 9, name: 'Marina Bay', lat: 1.2834, lon: 103.8607, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 9
+        }
+      ]
+    }, {
+      id: 10, name: 'Sydney Superyacht Marina', lat: -33.8688, lon: 151.2093, schiffe: [
+
+        {
+          name: 'Schiff 15',
+          type: 'Luxusyacht',
+          capacity: 20,
+          preisProNacht: 1000,
+          inhalt: 'Luxus-Kabinen, Pool, Bar, Kino',
+          bildUrls: ['assets/Boot 1 (2).png', 'assets/Boot 1 (1).png'],
+          hafenId: 10
+        }
+      ]
+    }, 
+
   ];
 
   similarHaefen: string[] = [];
@@ -147,6 +261,7 @@ export class SchiffeComponent {
   searchQuery = ''; // Variable für das Suchfeld
   selectedSchiff: Schiff | null = null; // Hinzugefügt: Variable für das ausgewählte Schiff
   detailInserted: boolean[] = []; // Array to track if detail view has been inserted for each section
+  currentSlides: number[] = []; // Array to track the current slide index for each card
 
   constructor() {
     this.similarHaefen = this.hafens.map(hafen => hafen.name); // Initialisiere similarHaefen mit allen Häfen
@@ -172,9 +287,11 @@ export class SchiffeComponent {
     if (selectedHafen) {
       this.filteredSchiffe = selectedHafen.schiffe || [];
       this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
+      this.currentSlides = new Array(this.filteredSchiffe.length).fill(0); // Initialize currentSlides for each ship
     } else {
       this.filteredSchiffe = [];
       this.detailInserted = [];
+      this.currentSlides = [];
     }
     this.similarHaefen = [];
     this.searchQuery = ''; // Zurücksetzen der Suchleiste
@@ -195,4 +312,19 @@ export class SchiffeComponent {
     console.log('Detail inserted at index', index); // Debugging-Statement
     this.detailInserted[index] = true;
   }
+
+  plusSlides(n: number, index: number) {
+    const slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
+    let currentSlide = this.currentSlides[index];
+    currentSlide += n;
+    if (currentSlide >= slides.length) { currentSlide = 0; }
+    if (currentSlide < 0) { currentSlide = slides.length - 1; }
+    this.currentSlides[index] = currentSlide;
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].classList.remove('active');
+    }
+    slides[currentSlide].classList.add('active');
+  }
+  
 }

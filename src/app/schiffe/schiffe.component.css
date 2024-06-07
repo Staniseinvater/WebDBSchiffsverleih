@@ -1,138 +1,259 @@
+/* Container Styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Heading and Paragraph Styles */
+.container h1,
+.container p {
+  text-align: center;
+}
+
+/* Input Styles */
+input[type="text"] {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* Scrollable List Styles */
+.scrollable-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  box-sizing: border-box;
+  max-height: 200px; /* Set a max height for the list */
+  overflow-y: auto; /* Make the list scrollable */
+  width: 100%;
+  max-width: 600px;
+}
+
+.scrollable-list li {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.scrollable-list li:hover {
+  background-color: #e9e9e9;
+}
+
+/* Cards Container Styles */
 .cards-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  width: 100%;
+  max-width: 1200px; /* Adjust max width to ensure 3 cards per row */
 }
 
+/* Card Styles */
 .card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #ffffff;
+  background-color: #fff;
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: ease-out 0.3s;
+  overflow: hidden;
   cursor: pointer;
-  padding: 2px;
+  transition: transform 0.3s;
+  margin-top: 40px;
 }
 
 .card.expanded {
-  /* Optionally, you can style expanded cards differently */
+  transform: scale(1.05);
 }
 
 .card-header {
-  /* Your styles */
-}
-
-.card:hover {
-  border: 2px solid #2f0086;
-  padding: 2px;
-  transition: ease-in 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-image img {
   width: 100%;
-  height: 200px;
+  height: 350px;
   object-fit: cover;
 }
 
 .card-content {
-  padding: 15px;
+  padding: 20px;
 }
 
 .card-content h2 {
-  margin-top: 0;
+  margin: 0 0 10px 0;
 }
 
 .card-content p {
   margin: 5px 0;
 }
 
-.card-footer {
-  padding: 15px;
-  border-top: 1px solid #ddd;
+.price {
   display: flex;
   justify-content: space-between;
-}
-
-.price {
-  font-size: 1.2em;
+  align-items: center;
+  margin-top: 10px;
   font-weight: bold;
 }
 
+/* Card Details Styles */
 .card-details-container {
-  grid-column: 1 / -1; /* Ensures the detail view spans the full width of the grid */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+  grid-column: span 3;
+  width: 100%;
 }
 
 .card-details {
   display: flex;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ddd;
-  width: 80%;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.details-image {
+  position: relative;
 }
 
 .details-image img {
-  width: 50%;
-  height: auto;
+  width: 100%;
+  height: 550px;
   object-fit: cover;
+  transition: 0.6s ease;
 }
 
 .details-content {
-  padding: 15px;
-  width: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(100, 100, 100, 0.425);
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: 0.6s ease;
+  backdrop-filter: blur(10px); /* Add this line for blur effect */
+}
+
+
+.card-details:hover .details-content {
+  transform: translateY(0);
+}
+
+.details-content:hover {
+  transform: translateY(0) !important;
+}
+
+.details-content h3 {
+  margin: 0 0 10px 0;
 }
 
 .options {
-  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .option {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 10px;
 }
 
-.kilometerpaket {
-  margin-bottom: 15px;
+.option input {
+  margin: 0;
+}
+
+.price-detail {
+  font-size: 0.875rem;
+  color: #fff;
+}
+
+.kilometerpaket h4 {
+  margin: 20px 0 10px 0;
 }
 
 .weiter-button {
-  background-color: #ff6600;
-  color: white;
-  border: none;
   padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.weiter-button:hover {
+  background-color: #0056b3;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 10px 0;
+/* Slideshow Container */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
 }
 
-li {
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 5px;
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Active slide */
+.mySlides.active {
+  display: block;
+}
+
+/* Next & previous buttons */
+.prev, .next {
   cursor: pointer;
-  background-color: #f9f9f9;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  z-index: 10;
 }
 
-li:hover {
-  background-color: #e9e9e9;
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  }
+
+  .card,
+  .card-details-container {
+    width: 100%;
+    max-width: none;
+  }
 }
