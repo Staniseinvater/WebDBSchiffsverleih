@@ -1,8 +1,60 @@
-<h1>Unsere Schiffe / Boote ?</h1>
+<h1>Unsere Schiffe / Boote</h1>
 <p>Hier findest du eine Liste unserer verfügbaren Schiffe.</p>
 
-<div>
-  <h1>Unsere Boote</h1>
-  <p>tolles beispiel-boot:</p>
-  <img src="assets/boot1.png" alt="Boot">
+<input type="text" placeholder="Hafen suchen..." [(ngModel)]="searchQuery" (input)="onSearch($event)">
+
+<ul *ngIf="similarHaefen.length > 0">
+  <li *ngFor="let hafen of similarHaefen" (click)="selectHafen(hafen)">{{ hafen }}</li>
+</ul>
+
+<div class="cards-container">
+  <ng-container *ngFor="let schiff of filteredSchiffe; let i = index">
+    <div class="card" [class.expanded]="schiff === selectedSchiff" (click)="toggleDetails(schiff)">
+      <div class="card-header">
+        <div class="card-image">
+          <img [src]="schiff.bildUrl" alt="{{ schiff.name }}">
+        </div>
+        <div class="card-content">
+          <h2>{{ schiff.name }}</h2>
+          <p>Typ: {{ schiff.type }}</p>
+          <p>Kapazität: {{ schiff.capacity }} Personen</p>
+          <p>Preis pro Nacht: {{ schiff.preisProNacht }} €</p>
+          <p>Inhalt: {{ schiff.inhalt }}</p>
+          <p>Hafen: {{ schiff.hafenId }}</p>
+          <div class="price">
+            <span>{{ schiff.preisProNacht }} €</span>
+            <span>/Nacht</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Insert the details box after every third card -->
+    <div *ngIf="(i + 1) % 3 === 0 && selectedSchiff && !detailInserted[i]" class="card-details-container" (ngInit)="setDetailInserted(i)">
+      <div class="card-details">
+        <div class="details-image">
+          <img [src]="selectedSchiff.bildUrl" alt="{{ selectedSchiff.name }}">
+        </div>
+        <div class="details-content">
+          <h3>Buchungsoption</h3>
+          <div class="options">
+            <div class="option">
+              <input type="radio" id="Pres" name="buchungsoption" value="preis" checked>
+              <label for="bestePreise">Bester Preis</label>
+              <span class="price-detail">Inklusive kilometer oder so</span>
+            </div>
+            <div class="option">
+              <input type="radio" id="irgendwasAussdenken" name="buchungsoption" value="müssenUnsWasAusdenken">
+              <label for="flexibelBleiben">Müssen uns was ausdenken</label>
+              <span class="price-detail">extra rabatt oder so ka iwas ausdeken</span>
+            </div>
+          </div>
+          <div class="kilometerpaket">
+            <h4>Kilometerpaket</h4>
+            <p>Unbegrenzte Kilometer</p>
+          </div>
+          <button class="weiter-button">Weiter</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>

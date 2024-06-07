@@ -1,2 +1,19 @@
-<h1>Unsere Häfen</h1>
-<p>Hier findest du Informationen zu den Häfen, die wir ansteuern.</p>
+<div class="container">
+  <div class="globe-container">
+    <div id="globeViz"></div>
+  </div>
+  <div class="info-container">
+    <h2>Unsere Häfen</h2>
+    <p>Hier findest du Informationen zu den Häfen, die wir ansteuern.</p>
+    <input type="text" placeholder="Häfen suchen..." [formControl]="searchControl">
+    <ul>
+      <li *ngFor="let hafen of filteredHafens | async" (click)="selectHafen(hafen)">{{ hafen.name }}</li>
+    </ul>
+    <div *ngIf="selectedHafen" class="hafen-details">
+      <h3>{{ selectedHafen.name }}</h3>
+      <p>Street: {{ selectedHafen.street }}</p>
+      <p>Capacity: {{ selectedHafen.capacity }}</p>
+      <img [src]="selectedHafen.imageUrl" alt="{{ selectedHafen.name }}">
+    </div>
+  </div>
+</div>

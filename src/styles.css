@@ -1,7 +1,10 @@
 
 body {
-  background-image: url('/assets/Sonnenuntergang_Hintergrund.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
+  background-color:  #0000422a;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
