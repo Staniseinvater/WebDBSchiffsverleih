@@ -1,2 +1,29 @@
 <h1>Registrieren</h1>
-<p>Hier kannst du dich bald Registrieren, wenn Nour das bald macht.</p>
+<div class="container">
+  <h2>Benutzerregistrierung</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input type="text" id="name" placeholder="Name" formControlName="name" />
+    </div>
+    <div class="form-group">
+      <input type="text" id="username" placeholder="Benutzername" formControlName="username" />
+    </div>
+    <div class="form-group">
+      <input type="email" id="email" placeholder="E-Mail-Adresse" formControlName="email" />
+    </div>
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Passwort" formControlName="password" />
+    </div>
+    <div class="form-group">
+      <input type="password" id="confirm-password" placeholder="Passwort bestätigen" formControlName="confirmPassword" />
+    </div>
+    <div class="button-group">
+      <button type="submit" id="register-btn">Registrieren</button>
+      <button type="button" id="cancel-btn">Abbrechen</button>
+    </div>
+  </form>
+  <div class="login-link">
+    Besitzen Sie bereits ein Kundenkonto? <a href="login">Anmelden</a>
+  </div>
+  
+</div>
