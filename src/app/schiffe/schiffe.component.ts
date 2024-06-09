@@ -326,5 +326,4 @@ export class SchiffeComponent {
     }
     slides[currentSlide].classList.add('active');
   }
-  
 }

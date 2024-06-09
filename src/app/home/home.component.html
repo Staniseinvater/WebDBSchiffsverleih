@@ -1,2 +1,62 @@
-<h1>Willkommen auf der Startseite</h1>
-<p>Hier findest du Informationen über unseren Schiffsverleih.</p>
+<body id="home">
+    <!-- Page Header -->
+    <header class="header">
+        <div class="overlay">
+            <h1 class="subtitle">Erkunde die Welt</h1>
+            <h1 class="title">Cabs</h1>  
+        </div>  
+        <div class="shape">
+            <svg viewBox="0 0 1500 200">
+                <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
+            </svg>
+        </div>  
+    </header>
+    <!-- End Of Page Header -->
+
+    <section class="section" id="our-service">
+        <div class="container">
+            <div class="section-title">
+                <h2>Unsere Services</h2>
+                <p></p>
+            </div>
+            <div class="row">
+                <div class="service-card">
+                    <div class="card-body">
+                        <h6>01</h6>
+                        <h3 class="card-title">Große Auswahl an Booten</h3>
+                        <p>Wir bieten eine breite Palette an Booten für alle Bedürfnisse und Vorlieben. Egal ob Sie ein gemütliches Familienboot oder ein schnelles Sportboot suchen, bei uns werden Sie fündig.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="card-body">
+                        <h6>02</h6>
+                        <h3 class="card-title">Flexible Mietzeiten</h3>
+                        <p>Unsere Mietzeiten sind flexibel, um Ihren Anforderungen gerecht zu werden. Sie können Boote stundenweise, tageweise oder für längere Zeiträume mieten.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="card-body">
+                        <h6>03</h6>
+                        <h3 class="card-title">Sicherheitsausrüstung inklusive</h3>
+                        <p>Die Sicherheit unserer Kunden hat oberste Priorität. Deshalb stellen wir sicher, dass alle unsere Boote mit der notwendigen Sicherheitsausrüstung ausgestattet sind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="section testimonials">
+    <div class="testimonial-slider" #slider>
+        <div class="slide" *ngFor="let testimonial of testimonials">
+            <div class="testimonial-content">
+                <p>{{ testimonial.quote }}</p>
+                <p class="author">— {{ testimonial.author }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Hier können wir einen Blog machen und die Sachen von der Datenbank hier einblenden lassen müssen aber die Logik ändern sollte 
+         aber nicht al zu schwer sein da wir einfach eine ngfor schleife machen mit allen Kommentaren              
+         Dies würde in echtzeit passieren damit die kommentare direkt eingefügt werden -->
+    
+</body>
