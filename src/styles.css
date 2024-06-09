@@ -3,7 +3,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center;
-  background-color:  #0000422a;
+  background-color:  white;
+  margin: 0;
 }
 
 html, body { height: 100%; }

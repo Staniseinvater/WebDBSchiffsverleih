@@ -8,6 +8,9 @@ import { SchiffeComponent } from "./schiffe/schiffe.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 
 
 @Component({
@@ -23,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
