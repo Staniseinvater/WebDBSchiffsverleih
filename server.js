@@ -1,78 +1,83 @@
-// set up ======================== 
-var express = require('express');
-var app = express();                               // create our app w/ express 
-var path = require('path');
-var mysql = require('mysql');
-var cors = require('cors');
+const express = require('express');
+const path = require('path');
+const mysql = require('mysql');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = 8081;
+
+// Middleware to allow cross-domain requests
 const allowCrossDomain = (req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-      res.header('Access-Control-Allow-Headers', 'Content-Typ');
-      next();
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 };
 
-bodyParser = require('body-parser');
-
-
-// support parsing of application/json type post data
+// Support parsing of application/json type post data
 app.use(bodyParser.json());
 
-//support parsing of application/x-www-form-urlencoded post data
+// Support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Use CORS and custom cross-domain middleware
 app.use(cors());
 app.use(allowCrossDomain);
 
-// configuration =================
-app.use(express.static(path.join(__dirname, '/dist/WebDBSchiffsverleih-1/browser')));  //TODO rename to your app-name
+// Serve static files
+app.use(express.static(path.join(__dirname, '/dist/WebDBSchiffsverleih-1/browser'))); // TODO: rename to your app-name
 
-// listen (start app with node server.js) ======================================
-app.listen(8081, function () {
-      console.log("App listening on port 8081");
+// Start the server
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
 });
 
-// application -------------------------------------------------------------
-app.get('/', function (req, res) {
-      //res.send("Hello World123");     
-      res.sendFile('index.html', { root: __dirname + '/dist/ebDBSchiffsverleih-1/browser' });    //TODO rename to your app-name
+// Serve the main application
+app.get('/', (req, res) => {
+    res.sendFile('index.html', { root: path.join(__dirname, '/dist/WebDBSchiffsverleih-1/browser') }); // TODO: rename to your app-name
 });
 
-var con = mysql.createConnection({
-      database: "schiff_verleih",
-      host: "localhost",
-      port: "3306",
-      user: "root",
-      password: "Sam3213314",
-});
+// MySQL connection configuration
+const dbConfig = {
+    database: "schiff_verleih",
+    host: "127.0.0.1",
+    port: "3306",
+    user: "root",
+    password: "Esemmutlu", // Replace with your MySQL root password
+};
+
+const con = mysql.createConnection(dbConfig);
 
 // Connect to the database
-con.connect(function (err) {
-      if (err) {
-            console.error('error connecting: ' + err.stack);
-            return;
-      }
-      console.log('connected as id ' + con.threadId);
+con.connect(err => {
+    if (err) {
+        console.error('Error connecting to MySQL:', err.stack);
+        return;
+    }
+    console.log('Connected to MySQL as id ' + con.threadId);
 });
 
 // Handle /benutzer endpoint
-app.get('/benutzer', function (req, res) {
-      con.query("SELECT * FROM benutzer", function (error, results, fields) {
-            if (error) {
-                  console.error(error);
-                  res.status(500).send('Error occurred while fetching data');
-                  return;
-            }
-            res.send(results);
-      });
+app.get('/benutzer', (req, res) => {
+    con.query("SELECT * FROM benutzer", (error, results, fields) => {
+        if (error) {
+            console.error('Error fetching benutzer:', error);
+            res.status(500).send('Error occurred while fetching data');
+            return;
+        }
+        res.json(results);
+    });
 });
 
 // Gracefully handle shutdown
 process.on('SIGINT', () => {
-      con.end(function (err) {
-            if (err) {
-                  console.error(err);
-            }
-            console.log('Disconnected from database');
-            process.exit(0);
-      });
+    con.end(err => {
+        if (err) {
+            console.error('Error disconnecting from MySQL:', err);
+        } else {
+            console.log('Disconnected from MySQL');
+        }
+        process.exit(0);
+    });
 });
