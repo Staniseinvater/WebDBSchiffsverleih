@@ -12,7 +12,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,13 +20,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HeaderComponent,
     HomeComponent,
     HaefenComponent,
-    KalenderComponent,
     SchiffeComponent,
     LoginComponent,
     RegisterComponent,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
