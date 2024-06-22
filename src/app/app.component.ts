@@ -9,6 +9,9 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { KontaktComponent } from './kontakt/kontakt.component';
+
+
 
 @Component({
   selector: 'app-root',
@@ -18,13 +21,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HeaderComponent,
     HomeComponent,
     HaefenComponent,
-    KalenderComponent,
     SchiffeComponent,
     LoginComponent,
     RegisterComponent,
+    KalenderComponent,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    KontaktComponent
+    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

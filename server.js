@@ -3,9 +3,12 @@ const path = require('path');
 const mysql = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = 8081;
+const JWT_SECRET = 'jwtSecret'; // Ersetzen Sie durch Ihren eigenen geheimen Schlüssel
 
 // Middleware to allow cross-domain requests
 const allowCrossDomain = (req, res, next) => {
@@ -67,6 +70,44 @@ app.get('/benutzer', (req, res) => {
             return;
         }
         res.json(results);
+    });
+});
+
+// Handle /benutzer/login endpoint
+app.post('/benutzer/login', (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).send('Username and password are required');
+    }
+
+    const query = 'SELECT * FROM benutzer WHERE benutzername = ? AND passwort = ? LIMIT 1';
+    con.query(query, [username, password], (err, results) => {
+        console.log(results);
+        if (err) {
+            console.error('Error fetching benutzer:', err);
+            return res.status(500).send('Server error');
+        }
+
+        if (results.length === 0) {
+            return res.status(401).send('Invalid username or password');
+        }
+
+        const user = results[0];
+        if (!user) {
+            return res.status(400).send('Invalid username or password');
+        }
+
+        const current_time = Math.floor(Date.now() / 1000);
+        const expiration_time = current_time + 864000; // ten days
+        const claims = {
+            'sub': 'public_key',
+            'exp': expiration_time,
+            'id': user.id,
+        };
+
+        const token = jwt.sign(claims, JWT_SECRET, { algorithm: 'HS256' });
+        res.send({ token });
     });
 });
 

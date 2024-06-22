@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router'; // Importiere RouterModule für Routing
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; // Beispiel für eine externe Bibliothek
+import { RouterModule } from '@angular/router'; 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,21 +14,24 @@ import { KalenderComponent } from './kalender/kalender.component';
 import { SchiffeComponent } from './schiffe/schiffe.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http'; // Importiere HttpClientModule für HTTP-Anfragen
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
-import { routes } from './app.routes'; // Importiere deine Routenkonfiguration
+
+import { routes } from './app.routes'; 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule, 
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes), 
-    FontAwesomeModule 
+    FontAwesomeModule ,
+    MatSnackBarModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent] 

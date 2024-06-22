@@ -5,6 +5,7 @@ import { KalenderComponent } from './kalender/kalender.component';
 import { SchiffeComponent } from './schiffe/schiffe.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { KontaktComponent } from './kontakt/kontakt.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,4 +14,5 @@ export const routes: Routes = [
   { path: 'schiffe', component: SchiffeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'kontakt', component: KontaktComponent },
 ];
