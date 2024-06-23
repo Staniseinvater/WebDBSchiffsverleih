@@ -17,4 +17,8 @@ export class BenutzerService {
   login(credentials: { username: string; password: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/login', credentials);
   }
+
+  register(credentials: { username: string; password: string, surname: String, name: String}): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/register', credentials);
+  }
 }

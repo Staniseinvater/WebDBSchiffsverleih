@@ -5,7 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const saltRounds = 10;
 const app = express();
 const PORT = 8081;
 const JWT_SECRET = 'jwtSecret'; // Ersetzen Sie durch Ihren eigenen geheimen Schlüssel
@@ -80,10 +80,11 @@ app.post('/benutzer/login', (req, res) => {
     if (!username || !password) {
         return res.status(400).send('Username and password are required');
     }
-
-    const query = 'SELECT * FROM benutzer WHERE benutzername = ? AND passwort = ? LIMIT 1';
-    con.query(query, [username, password], (err, results) => {
+    const query = 'SELECT * FROM benutzer WHERE benutzername = ? LIMIT 1';
+    con.query(query, [username], (err, results) => {
         console.log(results);
+        // Compare a password with its hash
+
         if (err) {
             console.error('Error fetching benutzer:', err);
             return res.status(500).send('Server error');
@@ -98,20 +99,70 @@ app.post('/benutzer/login', (req, res) => {
             return res.status(400).send('Invalid username or password');
         }
 
-        const current_time = Math.floor(Date.now() / 1000);
-        const expiration_time = current_time + 864000; // ten days
-        const claims = {
-            'sub': 'public_key',
-            'exp': expiration_time,
-            'id': user.id,
-        };
+        bcrypt.compare(password, user.passwort, (err, result) => {
+            if (err) throw err;
+            if (result) {
+                const current_time = Math.floor(Date.now() / 1000);
+                const expiration_time = current_time + 864000;
+                const claims = {
+                    'sub': 'public_key',
+                    'exp': expiration_time,
+                    'id': user.id,
+                };
 
-        const token = jwt.sign(claims, JWT_SECRET, { algorithm: 'HS256' });
-        res.send({ token });
+                const token = jwt.sign(claims, JWT_SECRET, { algorithm: 'HS256' });
+                return res.send({ token });
+            } else {
+                return res.status(401).send('Nicht autorisiert');
+            }
+        });
+    });
+
+});
+
+// Handle /benutzer/register endpoint
+app.post('/benutzer/register', (req, res) => {
+    const { name, surname, username, password, confirmPassword } = req.body;
+
+    if (!username || !password || !name || !surname || !confirmPassword) {
+        return res.status(400).send('All fields are required');
+    }
+
+    const userExistsQuery = 'SELECT * FROM benutzer WHERE benutzername = ?';
+    con.query(userExistsQuery, [username], (err, results) => {
+        if (err) {
+            console.error('Error checking for existing user:', err);
+            return res.status(500).send('Server error');
+        }
+        if (results.length > 0) {
+            return res.status(409).send('User already exists');
+        }
+
+
+        if (password !== confirmPassword) {
+            return res.status(400).send('Passwords do not match');
+        }
+
+        bcrypt.hash(password, saltRounds, (err, hash) => {
+            if (err) {
+                console.error('Error hashing password:', err);
+                return res.status(500).send('Server error');
+            }
+
+            const query = 'INSERT INTO benutzer (vorname, benutzername, passwort, nachname) VALUES (?, ?, ?, ?)';
+            con.query(query, [name, username, hash, surname], (err, results) => {
+                if (err) {
+                    console.error('Error creating benutzer:', err);
+                    return res.status(500).send('Server error');
+                }
+
+                return res.status(201).json({message: 'User created successfully'});
+            });
+        });
     });
 });
 
-// Gracefully handle shutdown
+
 process.on('SIGINT', () => {
     con.end(err => {
         if (err) {

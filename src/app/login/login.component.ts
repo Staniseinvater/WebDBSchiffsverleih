@@ -35,27 +35,26 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
 
-    this.benutzerService.login(this.loginForm.value).subscribe(
-      (response) => {
+    this.benutzerService.login(this.loginForm.value).subscribe({
+      next: (response) => {
         console.log(response);
         this.openSnackBar('Sie sind erfolgreich eingeloggt', 'Schließen', {
           duration: 3000,
           panelClass: ['success-snackbar']
         });
       },
-      (error) => {
+      error: (error) => {
         let errorMessage = 'Serverfehler';
         if (error.status === 401) {
-          errorMessage = 'Ungültige Anmeldedaten';
+          errorMessage = 'Ungültige Anmeldedaten oder der Benutzer existiert nicht';
         } else if (error.status === 400) {
           errorMessage = 'Bitte füllen Sie alle Felder aus';
         }
-
         this.openSnackBar(errorMessage, 'Schließen', {
           duration: 3000,
           panelClass: ['error-snackbar'],
         });
       }
-    );
+    });
   }
 }
