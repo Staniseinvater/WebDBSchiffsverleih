@@ -14,4 +14,22 @@ p {
   letter-spacing: 1px;
   font-size: 14px;
   color: rgb(0, 0, 0); /* Ensure text is visible on dark background */
+<<<<<<< Updated upstream
 }
+=======
+}
+
+.success-snackbar {
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-container-color: #228800;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+.error-snackbar {
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+>>>>>>> Stashed changes
