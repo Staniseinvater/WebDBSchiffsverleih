@@ -7,11 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class BenutzerService {
   private apiUrl = 'http://localhost:8081/benutzer';
+  private apiUrl1 = 'http://localhost:8081/schiffe';
+  
 
   constructor(private http: HttpClient) { }
 
   getBenutzer(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
+  }
+
+  getSchiffe(): Observable<any> {
+    return this.http.get<any>(this.apiUrl1);
   }
 
   login(credentials: { username: string; password: string }): Observable<any> {

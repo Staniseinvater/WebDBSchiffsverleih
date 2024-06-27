@@ -4,23 +4,33 @@ import { BenutzerService } from '../benutzerservice/benutzerservice.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, MatSnackBarModule, CommonModule],
+  imports: [ReactiveFormsModule, MatSnackBarModule, CommonModule, FontAwesomeModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  hidePassword: boolean = true; 
+  faEye = faEye; 
+  faEyeSlash = faEyeSlash; 
+
+
 
   constructor(
     private fb: FormBuilder,
     private benutzerService: BenutzerService,
     private snackBar: MatSnackBar // Inject MatSnackBar here
+    
   ) { }
 
   ngOnInit() {
@@ -32,6 +42,7 @@ export class LoginComponent implements OnInit {
   openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
     this.snackBar.open(message, action, config);
   }
+
 
   onSubmit() {
 
@@ -56,5 +67,9 @@ export class LoginComponent implements OnInit {
         });
       }
     });
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
   }
 }
