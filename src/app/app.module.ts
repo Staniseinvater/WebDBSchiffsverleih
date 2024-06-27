@@ -1,38 +1,45 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router'; 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'; 
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { HaefenComponent } from './haefen/haefen.component';
-import { KalenderComponent } from './kalender/kalender.component';
-import { SchiffeComponent } from './schiffe/schiffe.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BookingFormDialogComponent } from './booking-form-dialog/booking-form-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
-
-
-import { routes } from './app.routes'; 
+// Entfernen Sie die Zeile, die den SchiffeComponent importiert, wenn es standalone ist
 
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes), 
-    FontAwesomeModule ,
-    MatSnackBarModule,
+    RouterModule.forRoot([]),
     BrowserAnimationsModule,
+    BookingFormDialogComponent,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatDialogModule,
+    // SchiffeComponent ist standalone und sollte hier nicht importiert werden
   ],
   providers: [],
-  bootstrap: [AppComponent] 
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

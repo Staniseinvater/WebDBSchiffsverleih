@@ -1,6 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { BookingFormDialogComponent } from '../booking-form-dialog/booking-form-dialog.component'; // Ensure the path is correct
+import { ReactiveFormsModule } from '@angular/forms';
+import { BenutzerService } from '../benutzerservice/benutzerservice.component';
+
 
 interface Schiff {
   name: string;
@@ -23,10 +33,21 @@ interface Hafen {
 @Component({
   selector: 'app-schiffe',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './schiffe.component.html',
-  styleUrls: ['./schiffe.component.css']
+  styleUrls: ['./schiffe.component.css'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatDialogModule
+  ]
 })
+
 export class SchiffeComponent {
   hafens: Hafen[] = [
     {
@@ -255,24 +276,26 @@ export class SchiffeComponent {
     }, 
 
   ];
-
   similarHaefen: string[] = [];
   filteredSchiffe: Schiff[] = [];
-  searchQuery = ''; // Variable für das Suchfeld
-  selectedSchiff: Schiff | null = null; // Hinzugefügt: Variable für das ausgewählte Schiff
-  detailInserted: boolean[] = []; // Array to track if detail view has been inserted for each section
-  currentSlides: number[] = []; // Array to track the current slide index for each card
+  searchQuery = '';
+  selectedSchiff: Schiff | null = null;
+  detailInserted: boolean[] = [];
+  currentSlides: number[] = [];
+  range: FormGroup; // Form group for date range
 
-  constructor() {
-    this.similarHaefen = this.hafens.map(hafen => hafen.name); // Initialisiere similarHaefen mit allen Häfen
+  constructor(private fb: FormBuilder, public dialog: MatDialog,  private benutzerService: BenutzerService,) {
+    this.similarHaefen = this.hafens.map(hafen => hafen.name);
+    this.range = this.fb.group({
+      start: [],
+      end: []
+    });
   }
 
   onSearch(event: any) {
     const query = event.target.value.toLowerCase();
-    console.log('Suchbegriff:', query); // Debugging-Statement
     if (query.length > 0) {
       this.similarHaefen = this.hafens.map(hafen => hafen.name).filter(name => name.toLowerCase().includes(query));
-      console.log('Ähnliche Häfen:', this.similarHaefen); // Debugging-Statement
     } else {
       this.similarHaefen = this.hafens.map(hafen => hafen.name);
     }
@@ -282,34 +305,31 @@ export class SchiffeComponent {
   }
 
   selectHafen(hafenName: string) {
-    console.log('Ausgewählter Hafen:', hafenName); // Debugging-Statement
     const selectedHafen = this.hafens.find(hafen => hafen.name === hafenName);
     if (selectedHafen) {
       this.filteredSchiffe = selectedHafen.schiffe || [];
-      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
-      this.currentSlides = new Array(this.filteredSchiffe.length).fill(0); // Initialize currentSlides for each ship
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
+      this.currentSlides = new Array(this.filteredSchiffe.length).fill(0);
     } else {
       this.filteredSchiffe = [];
       this.detailInserted = [];
       this.currentSlides = [];
     }
     this.similarHaefen = [];
-    this.searchQuery = ''; // Zurücksetzen der Suchleiste
+    this.searchQuery = '';
   }
 
   toggleDetails(schiff: Schiff) {
     if (this.selectedSchiff === schiff) {
       this.selectedSchiff = null;
-      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
     } else {
       this.selectedSchiff = schiff;
-      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false); // Reset the detailInserted array
+      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
     }
-    console.log('Selected Schiff:', this.selectedSchiff); // Debugging-Statement
   }
 
   setDetailInserted(index: number) {
-    console.log('Detail inserted at index', index); // Debugging-Statement
     this.detailInserted[index] = true;
   }
 
@@ -325,5 +345,25 @@ export class SchiffeComponent {
       slides[i].classList.remove('active');
     }
     slides[currentSlide].classList.add('active');
+  }
+
+  openForm() {
+    if (!this.benutzerService.isLoggedIn()) {
+      alert('Bitte melden Sie sich an, um das Buchungsformular auszufüllen.');
+    } else {
+      const dialogRef = this.dialog.open(BookingFormDialogComponent, {
+        width: '400px',
+        data: {
+          startDate: this.range.controls['start'].value,
+          endDate: this.range.controls['end'].value
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          // Handle the result here
+        }
+      });
+    }
   }
 }

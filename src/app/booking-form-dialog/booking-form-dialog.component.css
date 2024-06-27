@@ -1,0 +1,78 @@
+/* Hintergrund des Dialogs */
+mat-dialog-content {
+    background-color: #ffffff; /* Weißer Hintergrund */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titel des Formulars */
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Volle Breite für Formularelemente */
+  .full-width {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  /* Button-Gruppe */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  /* Styling für Mat-Form-Felder */
+  .mat-form-field {
+    background: #ffffff; /* Weißer Hintergrund */
+    border-radius: 4px;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-flex {
+    padding: 0;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline-start,
+  .mat-form-field-appearance-outline .mat-form-field-outline-end,
+  .mat-form-field-appearance-outline .mat-form-field-outline-gap {
+    border-color: #e0e0e0;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .mat-form-field.mat-focused .mat-form-field-outline-start,
+  .mat-form-field.mat-focused .mat-form-field-outline-end,
+  .mat-form-field.mat-focused .mat-form-field-outline-gap {
+    border-color: #3f51b5;
+  }
+  
+  .mat-form-field-label {
+    color: #3f51b5;
+    font-weight: 500;
+  }
+  
+  .mat-form-field-ripple {
+    background-color: #3f51b5;
+  }
+  
+  /* Styling für Buttons */
+  button[mat-raised-button] {
+    margin-right: 10px;
+  }
+  
+  button[mat-button] {
+    color: #f44336; /* Warnfarbe für Abbrechen-Button */
+  }
+  
