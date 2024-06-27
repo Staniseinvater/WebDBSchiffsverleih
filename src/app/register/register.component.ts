@@ -4,17 +4,25 @@ import { BenutzerService } from '../benutzerservice/benutzerservice.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, MatSnackBarModule, CommonModule],
+  imports: [ReactiveFormsModule, MatSnackBarModule, CommonModule, FontAwesomeModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup; 
+  hidePassword: boolean = true; 
+  hideConfirmPassword: boolean = true; 
+  faEye = faEye; 
+  faEyeSlash = faEyeSlash; 
+
 
   constructor(
     private fb: FormBuilder,
@@ -68,6 +76,14 @@ export class RegisterComponent implements OnInit {
         this.openErrorSnackBar(errorMessage);
       }
     });
+  }
+
+  togglePasswordVisibility(field: 'password' | 'confirmPassword') {
+    if (field === 'password') {
+      this.hidePassword = !this.hidePassword;
+    } else if (field === 'confirmPassword') {
+      this.hideConfirmPassword = !this.hideConfirmPassword;
+    }
   }
 }
 

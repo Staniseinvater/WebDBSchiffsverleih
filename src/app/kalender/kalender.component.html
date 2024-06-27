@@ -1,5 +1,8 @@
 <ul>
-  <li *ngFor="let user of benutzer">
+  <li class = "benutzerListe" *ngFor="let user of benutzer">
     Benutzername: {{ user.benutzername }}, Vorname: {{ user.vorname }}, Nachname: {{ user.nachname }}
+  </li>
+  <li class = "schiffsListe" *ngFor="let schiffe of schiffe">
+    Schiffsname: {{ schiffe.schiffsname }}, HafenID: {{ schiffe.hafenID }}, SchiffsID: {{ schiffe.schiffsID }}
   </li>
 </ul>
