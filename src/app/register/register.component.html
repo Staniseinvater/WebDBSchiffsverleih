@@ -12,11 +12,17 @@
     <div class="form-group">
       <input type="text" id="username" placeholder="Benutzername" formControlName="username" />
     </div>
-    <div class="form-group">
-      <input type="password" id="password" placeholder="Passwort" formControlName="password" />
+    <div class="form-group password-field">
+      <input [type]="hidePassword ? 'password' : 'text'" id="password" placeholder="Passwort" formControlName="password" />
+      <button type="button" class="visibility-btn" (click)="togglePasswordVisibility('password')">
+        <fa-icon [icon]="hidePassword ? faEyeSlash : faEye" />
+      </button>
     </div>
-    <div class="form-group">
-      <input type="password" id="confirm-password" placeholder="Passwort bestätigen" formControlName="confirmPassword" />
+    <div class="form-group password-field">
+      <input [type]="hideConfirmPassword ? 'password' : 'text'" id="confirm-password" placeholder="Passwort bestätigen" formControlName="confirmPassword" />
+      <button type="button" class="visibility-btn" (click)="togglePasswordVisibility('confirmPassword')">
+        <fa-icon [icon]="hideConfirmPassword ? faEyeSlash : faEye" />
+      </button>
     </div>
     <div class="button-group">
       <button type="submit" id="register-btn">Registrieren</button>
@@ -25,4 +31,7 @@
   <div class="login-link">
     Besitzen Sie bereits ein Kundenkonto? <a href="login">Anmelden</a>
   </div>
+
+
 </div>
+

@@ -11,11 +11,14 @@ import { HttpClient } from '@angular/common/http';
 })
 export class KalenderComponent implements OnInit {
   benutzer: any[] = [];
+  schiffe: any[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadBenutzer();
+    this.loadSchiffe();
+
   }
 
   loadBenutzer(): void {
@@ -26,6 +29,17 @@ export class KalenderComponent implements OnInit {
           this.benutzer = data;
         },
         error: err => console.error('Failed to load benutzer', err)
+      });
+  }
+
+  loadSchiffe(): void {
+    this.http.get<any[]>('http://localhost:8081/schiffe')
+      .subscribe({
+        next: data => {
+          console.log('Data fetched:', data); // Debugging line to check fetched data
+          this.schiffe = data;
+        },
+        error: err => console.error('Failed to load schiffe', err)
       });
   }
 }
