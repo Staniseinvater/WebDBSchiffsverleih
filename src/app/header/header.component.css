@@ -10,7 +10,20 @@ header {
   width: 100%;
   z-index: 1000; /* Ensure it is above other content */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatten für mehr Tiefe */
-  padding-top: 20px;
+  padding-top: 50px;
+}
+
+.burger-menu {
+  display: none;
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: rgb(244, 245, 248);
+  cursor: pointer;
+  position: absolute;
+  right: 20px; /* Adjust based on your layout */
+  top: 0px;/* Align vertically */
+  background-color: #005c85;
 }
 
 /* Navigation Styling */
@@ -41,7 +54,7 @@ nav ul li a {
   text-decoration: none;
   font-weight: bold;
   font-size: 18px;
-  padding: 10px 20px; /* Padding für mehr Klickbereich */
+  padding: 5px 20px; /* Padding für mehr Klickbereich */
   border-radius: 25px; /* Abgerundete Ecken */
   transition: all 0.3s ease; /* Glatte Übergänge */
   position: relative; /* Für die Pseudo-Elemente erforderlich */
@@ -74,20 +87,33 @@ nav ul li a:hover::before {
   transform: scaleX(1);
 }
 
-/* Additional decorative effects */
-nav ul li a:hover::after {
-  visibility: visible;
-  transform: scale(1);
-}
-
+/* Responsive Styling */
 @media (max-width: 768px) {
+  .burger-menu {
+    display: block;
+  }
+
   nav ul {
+    display: none; /* Initially hidden on mobile */
     flex-direction: column;
-    gap: 15px;
+    width: 100%; /* Full width */
+    position: absolute;
+    top: 60px; /* Below the header */
+    left: 0;
+    background-color: #005c85; /* Same as header background */
+  }
+
+  nav.open ul {
+    display: flex; /* Shown when burger menu is clicked */
+  }
+
+  nav ul li {
+    text-align: center; /* Center align the links */
+    width: 100%; /* Full width for each link */
   }
 
   nav ul li a {
     font-size: 16px;
-    padding: 8px 15px;
+    padding: 8px 14px; /* Adjust padding for mobile */
   }
 }
