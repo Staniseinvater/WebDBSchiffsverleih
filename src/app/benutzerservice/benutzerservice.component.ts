@@ -21,4 +21,9 @@ export class BenutzerService {
   register(credentials: { username: string; password: string, surname: String, name: String}): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/register', credentials);
   }
+
+  isLoggedIn(): boolean {
+    // Überprüfen Sie den Login-Status (z.B. durch ein Token im Local Storage)
+    return !!localStorage.getItem('token');
+  }
 }

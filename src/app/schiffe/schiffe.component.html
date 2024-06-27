@@ -30,37 +30,48 @@
         </div>
       </div>
 
-      <!-- Insert the details box after every third card -->
       <div *ngIf="(i + 1) % 3 === 0 && selectedSchiff && !detailInserted[i]" class="card-details-container" (ngInit)="setDetailInserted(i)">
         <div class="card-details">
           <div class="details-image">
             <div class="slideshow-container">
               <div *ngFor="let bild of selectedSchiff?.bildUrls; let j = index" class="mySlides" [ngClass]="{'active': j === currentSlides[i]}">
-                <img [src]="bild" alt="{{ selectedSchiff?.name }}">
+                <img [src]="bild" alt="{{ selectedSchiff.name }}">
               </div>
               <a class="prev" (click)="plusSlides(-1, i)">&#10094;</a>
               <a class="next" (click)="plusSlides(1, i)">&#10095;</a>
             </div>
-            <div class="details-content">
-              <h3>Buchungsoption</h3>
-              <div class="options">
-                <div class="option">
-                  <input type="radio" id="Pres" name="buchungsoption" value="preis" checked>
-                  <label for="bestePreise">Bester Preis</label>
-                  <span class="price-detail">Inklusive kilometer oder so</span>
-                </div>
-                <div class="option">
-                  <input type="radio" id="irgendwasAussdenken" name="buchungsoption" value="müssenUnsWasAusdenken">
-                  <label for="flexibelBleiben">müssen uns noch was ausdenken</label>
-                  <span class="price-detail">Hier kommt der kalender hin von wann bis wann man den ausleihen will</span>
-                </div>
+          </div>
+          <div class="details-content">
+            <h3>Buchungsoption</h3>
+            <div class="options">
+              <div class="option">
+                <input type="radio" id="Pres" name="buchungsoption" value="preis" checked>
+                <label for="bestePreise">Bester Preis</label>
+                <span class="price-detail">Inklusive kilometer oder so</span>
               </div>
-              <div class="kilometerpaket">
-                <h4>Kilometerpaket</h4>
-                <p>Unbegrenzte Kilometer</p>
+              <div class="option">
+                <input type="radio" id="irgendwasAussdenken" name="buchungsoption" value="müssenUnsWasAusdenken">
+                <label for="flexibelBleiben">müssen uns noch was ausdenken</label>
+                <span class="price-detail">Hier kommt der kalender hin von wann bis wann man den ausleihen will</span>
               </div>
-              <button class="weiter-button">Weiter</button>
             </div>
+            <div class="kilometerpaket">
+              <h4>Kilometerpaket</h4>
+              <p>Unbegrenzte Kilometer</p>
+            </div>
+            <div class="calendar">
+              <h4>Kalender</h4>
+              <mat-form-field appearance="fill">
+                <mat-label>Datum auswählen</mat-label>
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                  <input matStartDate formControlName="start" placeholder="Startdatum">
+                  <input matEndDate formControlName="end" placeholder="Enddatum">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+            <button class="weiter-button" (click)="openForm()">Weiter</button>
           </div>
         </div>
       </div>
