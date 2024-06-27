@@ -1,6 +1,9 @@
+// benutzer.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Schiff } from '../models/schiff.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,16 +11,28 @@ import { Observable } from 'rxjs';
 export class BenutzerService {
   private apiUrl = 'http://localhost:8081/benutzer';
   private apiUrl1 = 'http://localhost:8081/schiffe';
-  
+  private apiUrl2 = 'http://localhost:8081/haefen';
 
   constructor(private http: HttpClient) { }
 
-  getBenutzer(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  private getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  getSchiffe(): Observable<any> {
-    return this.http.get<any>(this.apiUrl1);
+  getBenutzer(): Observable<any> {
+    return this.http.get<any>(this.apiUrl, { headers: this.getAuthHeaders() });
+  }
+
+  getSchiffe(): Observable<Schiff[]> {
+    return this.http.get<Schiff[]>(this.apiUrl1, { headers: this.getAuthHeaders() });
+  }
+
+  getHaefen(): Observable<any> {
+    return this.http.get<any>(this.apiUrl2, { headers: this.getAuthHeaders() });
   }
 
   login(credentials: { username: string; password: string }): Observable<any> {
@@ -28,8 +43,11 @@ export class BenutzerService {
     return this.http.post<any>(this.apiUrl + '/register', credentials);
   }
 
+  updateSchiffHafen(schiffId: number, zielHafenId: number): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl1}/${schiffId}/hafen`, { zielHafenId }, { headers: this.getAuthHeaders() });
+  }
+
   isLoggedIn(): boolean {
-    // Überprüfen Sie den Login-Status (z.B. durch ein Token im Local Storage)
     return !!localStorage.getItem('token');
   }
 }

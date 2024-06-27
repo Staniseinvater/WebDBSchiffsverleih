@@ -21,6 +21,12 @@
       <mat-label>Enddatum</mat-label>
       <input matInput formControlName="endDate" [disabled]="true">
     </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Zielhafen</mat-label>
+      <mat-select formControlName="zielHafen" required>
+        <mat-option *ngFor="let hafen of haefen" [value]="hafen.id">{{ hafen.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <div class="button-group">
       <button mat-raised-button color="primary" type="submit">Buchen</button>
       <button mat-button color="warn" (click)="onNoClick()">Abbrechen</button>

@@ -9,8 +9,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
-
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,13 +22,10 @@ export class LoginComponent implements OnInit {
   faEye = faEye; 
   faEyeSlash = faEyeSlash; 
 
-
-
   constructor(
     private fb: FormBuilder,
     private benutzerService: BenutzerService,
     private snackBar: MatSnackBar // Inject MatSnackBar here
-    
   ) { }
 
   ngOnInit() {
@@ -39,16 +34,16 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
+  
   openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
     this.snackBar.open(message, action, config);
   }
 
-
   onSubmit() {
-
     this.benutzerService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log(response);
+        localStorage.setItem('token', response.token); // Token speichern
         this.openSnackBar('Sie sind erfolgreich eingeloggt', 'Schließen', {
           duration: 3000,
           panelClass: ['success-snackbar']

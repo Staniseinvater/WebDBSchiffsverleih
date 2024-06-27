@@ -1,3 +1,4 @@
+<!-- src/app/components/schiffe/schiffe.component.html -->
 <div class="container">
   <h1>Unsere Schiffe / Boote</h1>
   <p>Hier findest du eine Liste unserer verfügbaren Schiffe.</p>
@@ -21,7 +22,7 @@
             <p>Kapazität: {{ schiff.capacity }} Personen</p>
             <p>Preis pro Nacht: {{ schiff.preisProNacht }} €</p>
             <p>Inhalt: {{ schiff.inhalt }}</p>
-            <p>Hafen: {{ schiff.hafenId }}</p>
+            <p>Hafen: {{ schiff.hafenName }}</p> <!-- Ändern zu hafenName -->
             <div class="price">
               <span>{{ schiff.preisProNacht }} €</span>
               <span>/Nacht</span>
@@ -71,7 +72,7 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
               </mat-form-field>
             </div>
-            <button class="weiter-button" (click)="openForm()">Weiter</button>
+            <button class="weiter-button" (click)="openForm(schiff)">Weiter</button> <!-- Übergeben Sie das schiff Objekt -->
           </div>
         </div>
       </div>
