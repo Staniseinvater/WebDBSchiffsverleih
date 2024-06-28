@@ -46,8 +46,8 @@ const dbConfig = {
     database: "schiff_verleih",
     host: "127.0.0.1",
     port: "3306",
-    user: "root",
-    password: "Esemmutlu", // Replace with your MySQL root password
+    user: "toto",
+    password: "toto", // Replace with your MySQL root password
 };
 
 const con = mysql.createConnection(dbConfig);
