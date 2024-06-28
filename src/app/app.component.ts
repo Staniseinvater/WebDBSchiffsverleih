@@ -9,7 +9,8 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+// Import MDBootstrap module
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -27,7 +28,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     RegisterComponent,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule,
+    FontAwesomeModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

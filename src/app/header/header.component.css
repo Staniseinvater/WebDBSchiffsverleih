@@ -4,90 +4,33 @@ header {
   background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Bereich abdeckt */
   background-position: center; /* Das Bild wird zentriert */
   background-repeat: no-repeat; /* Das Bild wird nicht wiederholt */
-  padding: 10px 0;
-  position: fixed; /* Fest positioniert */
+  padding: 5px 0;
+  position: relative; /* Fest positioniert */
   top: 0;
   width: 100%;
   z-index: 1000; /* Ensure it is above other content */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatten für mehr Tiefe */
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
-/* Navigation Styling */
-nav {
-  display: flex;
-  justify-content: center; /* Centers the ul horizontally */
-  align-items: center;
-}
-
-/* Navigation List Styling */
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center; /* Centers the li items horizontally */
-  gap: 30px; /* Abstand zwischen den Links */
-}
-
-/* Navigation List Item Styling */
-nav ul li {
-  margin: 0; /* Entfernt den rechten Rand */
+.navbar {
+  background-color: #005c85; /* Same as header */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: #005c85;
 }
 
 /* Navigation Link Styling */
 nav ul li a {
-  color: white;
+  color: #ffffff;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
-  padding: 10px 20px; /* Padding für mehr Klickbereich */
-  border-radius: 25px; /* Abgerundete Ecken */
+  font-size: 17px;
+  padding: 30px 15px; /* Padding für mehr Klickbereich */
+  border-radius: 20px; /* Abgerundete Ecken */
   transition: all 0.3s ease; /* Glatte Übergänge */
   position: relative; /* Für die Pseudo-Elemente erforderlich */
 }
 
-/* Hover Effekt für Navigation Links */
-nav ul li a:hover {
-  color: #005c85; /* Maritime Farbe als Textfarbe */
-  background-color: #ffffff; /* Weißer Hintergrund */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Schatten beim Hover */
-  transform: translateY(-3px); /* Leichter Lift-Effekt */
-}
 
-/* Decorative underline */
-nav ul li a::before {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #00b3ff; /* Maritime Akzentfarbe */
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out;
-}
 
-nav ul li a:hover::before {
-  visibility: visible;
-  transform: scaleX(1);
-}
-
-/* Additional decorative effects */
-nav ul li a:hover::after {
-  visibility: visible;
-  transform: scale(1);
-}
-
-@media (max-width: 768px) {
-  nav ul {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  nav ul li a {
-    font-size: 16px;
-    padding: 8px 15px;
-  }
-}

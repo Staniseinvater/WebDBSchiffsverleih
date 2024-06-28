@@ -1,15 +1,36 @@
 <header>
-<nav>
-    <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/schiffe">Schiffe</a></li>
-      <li><a routerLink="/haefen">Häfen</a></li>
-      <li><a routerLink="/kalender">Kalender</a></li>
-      <li><a routerLink="/kontakt">Kontakt</a></li>
-      <li><a routerLink="/routen">Routen</a></li>
-      <li><a routerLink="/preise">Preise</a></li>
-      <li><a routerLink="/login">Login</a></li>
-      <li><a routerLink="/register">Registrieren</a></li>
-    </ul>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="/">
+          <img
+          src="../assets/icon.png"
+          height="50"
+          width="70"
+          alt=""
+          loading="lazy"
+      />
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/" >Home</a></li>
+          <li><a routerLink="/schiffe" >Schiffe</a></li>
+          <li><a routerLink="/haefen" >Häfen</a></li>
+         
+          <li><a routerLink="/kontakt" >Kontakt</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
 </header>
+
