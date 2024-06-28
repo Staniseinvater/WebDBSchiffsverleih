@@ -73,6 +73,20 @@ app.get('/benutzer', (req, res) => {
     });
 });
 
+
+
+// Handle /schiffe endpoint
+app.get('/schiffe', (req, res) => {
+    con.query("SELECT * FROM schiffe", (error, results, fields) => {
+        if (error) {
+            console.error('Error fetching schiffe:', error);
+            res.status(500).send('Error occurred while fetching data');
+            return;
+        }
+        res.json(results);
+    });
+});
+
 // Handle /benutzer/login endpoint
 app.post('/benutzer/login', (req, res) => {
     const { username, password } = req.body;
@@ -161,8 +175,6 @@ app.post('/benutzer/register', (req, res) => {
         });
     });
 });
-
-
 
 
 process.on('SIGINT', () => {

@@ -14,9 +14,6 @@ p {
   letter-spacing: 1px;
   font-size: 14px;
   color: rgb(0, 0, 0); /* Ensure text is visible on dark background */
-<<<<<<< Updated upstream
-}
-=======
 }
 
 .success-snackbar {
@@ -32,4 +29,3 @@ p {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
->>>>>>> Stashed changes

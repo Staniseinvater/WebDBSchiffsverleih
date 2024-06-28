@@ -42,14 +42,9 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.4.2"
-<<<<<<< Updated upstream
-  }
-}
-=======
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.2.",
   "main": "server.js",
   "author": "",
   "license": "ISC"
 }
->>>>>>> Stashed changes
