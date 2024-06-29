@@ -55,6 +55,13 @@ export class BenutzerService {
   }
 
   getComments(): Observable<any[]> {
-    return this.http.get<any[]>(this.commentsUrl, { headers: this.getAuthHeaders() });
+    return this.http.get<any[]>(this.commentsUrl); // Korrekte URL für Kommentare
+  }
+
+  addComment(comment: { author: string, location: string, text: string }): Observable<any> {
+    return this.http.post<any>(this.commentsUrl, comment, { 
+      headers: this.getAuthHeaders(), 
+      responseType: 'text' as 'json' 
+    });
   }
 }

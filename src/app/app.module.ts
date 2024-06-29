@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -11,16 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
 import { BookingFormDialogComponent } from './booking-form-dialog/booking-form-dialog.component';
-import { ReactiveFormsModule } from '@angular/forms';
-
-// Entfernen Sie die Zeile, die den SchiffeComponent importiert, wenn es standalone ist
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    // Füge hier alle anderen Komponenten hinzu
   ],
   imports: [
     BrowserModule,
@@ -29,7 +24,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RouterModule.forRoot([]),
     BrowserAnimationsModule,
-    BookingFormDialogComponent,
     MatDatepickerModule,
     MatInputModule,
     MatNativeDateModule,
@@ -37,9 +31,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     MatDialogModule,
-    // SchiffeComponent ist standalone und sollte hier nicht importiert werden
+    // Füge hier alle anderen Module hinzu
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [] // Da wir bootstrapApplication verwenden, bleibt dies leer
 })
 export class AppModule { }

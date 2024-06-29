@@ -9,8 +9,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(BrowserModule, FormsModule, ReactiveFormsModule, FontAwesomeModule, MatSnackBarModule, BrowserAnimationsModule),

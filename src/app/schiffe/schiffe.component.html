@@ -2,7 +2,7 @@
   <h1>Unsere Schiffe / Boote</h1>
   <p>Hier findest du eine Liste unserer verfügbaren Schiffe.</p>
 
-  <input type="text" placeholder="Hafen suchen..." [(ngModel)]="searchQuery" (input)="onSearch($event)">
+  <input type="text" placeholder="Hafen suchen..." [(ngModel)]="searchQuery" (focus)="onSearch($event)" (input)="onSearch($event)">
 
   <ul *ngIf="similarHaefen.length > 0" class="scrollable-list">
     <li *ngFor="let hafen of similarHaefen" (click)="selectHafen(hafen)">{{ hafen }}</li>
@@ -39,13 +39,15 @@
           </div>
           <button class="details-button" (click)="toggleDetailsContent(i)">Details anzeigen</button>
           <div [class.visible]="detailsVisible[i]" class="details-content">
-            <h3>{{ selectedSchiff.name }}</h3>
-            <p>Typ: {{ selectedSchiff.type }}</p>
-            <p>Kapazität: {{ selectedSchiff.capacity }} Personen</p>
-            <p>Preis pro Nacht: {{ selectedSchiff.preisProNacht }} €</p>
-            <p>Inhalt: {{ selectedSchiff.inhalt }}</p>
-            <p>Hafen: {{ selectedSchiff.hafenName }}</p>
-
+            <div class="text-content">
+              <h3>{{ selectedSchiff.name }}</h3>
+              <p>Typ: {{ selectedSchiff.type }}</p>
+              <p>Kapazität: {{ selectedSchiff.capacity }} Personen</p>
+              <p>Preis pro Nacht: {{ selectedSchiff.preisProNacht }} €</p>
+              <p>Inhalt: {{ selectedSchiff.inhalt }}</p>
+              <p>Hafen: {{ selectedSchiff.hafenName }}</p>
+              <button class="weiter-button" (click)="openForm(selectedSchiff)">Weiter</button>
+            </div>
             <div class="calendar">
               <h4>Kalender</h4>
               <mat-form-field appearance="fill">
@@ -58,7 +60,6 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
               </mat-form-field>
             </div>
-            <button class="weiter-button" (click)="openForm(selectedSchiff)">Weiter</button> <!-- Übergeben Sie das selectedSchiff Objekt -->
           </div>
         </div>
       </div>
