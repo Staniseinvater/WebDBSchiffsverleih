@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { Schiff } from '../models/schiff.model';
+
+interface LoginResponse {
+  token: string;
+  userName: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +17,18 @@ export class BenutzerService {
   private apiUrl1 = 'http://localhost:8081/schiffe';
   private apiUrl2 = 'http://localhost:8081/haefen';
   private commentsUrl = 'http://localhost:8081/comments';
-  isLoggedInStatus = false;
 
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkInitialLoginStatus());
+  private userNameSubject = new BehaviorSubject<string>(localStorage.getItem('userName') || '');
+
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  userName$ = this.userNameSubject.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  private checkInitialLoginStatus(): boolean {
+    return !!localStorage.getItem('token');
+  }
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
@@ -36,13 +50,22 @@ export class BenutzerService {
     return this.http.get<any>(this.apiUrl2, { headers: this.getAuthHeaders() });
   }
 
-  login(credentials: { username: string; password: string }): Observable<any> {
-    return this.http.post<any>(this.apiUrl + '/login', credentials);
+  login(credentials: { username: string; password: string }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.apiUrl + '/login', credentials).pipe(
+      tap((response: LoginResponse) => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userName', credentials.username);
+        this.isLoggedInSubject.next(true);
+        this.userNameSubject.next(credentials.username);
+      })
+    );
   }
 
   logout() {
     localStorage.removeItem('token');
-    this.isLoggedInStatus = false;
+    localStorage.removeItem('userName');
+    this.isLoggedInSubject.next(false);
+    this.userNameSubject.next('');
   }
 
   register(credentials: { username: string; password: string, surname: string, name: string }): Observable<any> {
@@ -54,7 +77,11 @@ export class BenutzerService {
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.isLoggedInSubject.value;
+  }
+
+  getUserName(): string {
+    return this.userNameSubject.value;
   }
 
   addAusleihen(bookingData: any): Observable<any> {
@@ -67,9 +94,8 @@ export class BenutzerService {
 
   addComment(comment: { author: string, location: string, text: string }): Observable<any> {
     return this.http.post<any>(this.commentsUrl, comment, { 
-      headers: this.getAuthHeaders(), 
-      responseType: 'text' as 'json' 
+      headers: this.getAuthHeaders(),
+      responseType: 'text' as 'json'
     });
   }
-
 }

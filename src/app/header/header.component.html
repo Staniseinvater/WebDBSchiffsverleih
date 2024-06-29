@@ -1,13 +1,19 @@
 <header>
   <button class="burger-menu" aria-label="Toggle navigation" (click)="toggleMenu()">&#9776;</button>
   <nav [class.open]="menuOpen">
-    <ul>
-      <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
-      <li><a routerLink="/schiffe" (click)="closeMenu()">Schiffe</a></li>
-      <li><a routerLink="/haefen" (click)="closeMenu()">Häfen</a></li>
-      <li><a routerLink="/kontakt" (click)="closeMenu()">Kontakt</a></li>
-      <li><a routerLink="/login" (click)="closeMenu()">Login</a></li>
-      <li><a routerLink="/register" (click)="closeMenu()">Registrieren</a></li>
-    </ul>
+    <div class="container">
+      <ul>
+        <li *ngIf="isLoggedIn" class="welcome-message">
+          <span class="welcome-nav">Willkommen, {{ userName }}</span>
+        </li>
+        <li><a routerLink="/" (click)="closeMenu()">Home</a></li>
+        <li><a routerLink="/schiffe" (click)="closeMenu()">Schiffe</a></li>
+        <li><a routerLink="/haefen" (click)="closeMenu()">Häfen</a></li>
+        <li><a routerLink="/kontakt" (click)="closeMenu()">Kontakt</a></li>
+        <li><a routerLink="/login" (click)="closeMenu()">Login</a></li>
+        <li><a routerLink="/register" (click)="closeMenu()">Registrieren</a></li>
+      </ul>
+    </div>
   </nav>
 </header>
+

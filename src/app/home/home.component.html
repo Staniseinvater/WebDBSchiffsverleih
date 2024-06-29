@@ -13,6 +13,10 @@
     </header>
     <!-- End Of Page Header -->
 
+    <div class="container">
+        <div *ngIf="isLoggedIn" class="welcome-message">
+            <p>Willkommen, {{ userName }}</p>
+        </div>
     <section class="section" id="our-service">
         <div class="container">
             <div class="section-title">
@@ -79,6 +83,6 @@
         </div>
     </section>
     <div class="button-group">
-        <button type="button" id="ausloggen-btn" (click)="logout()">Ausloggen</button>
-      </div>
+    <button type="button" id="ausloggen-btn" (click)="logout()">Ausloggen</button>
+  </div>
 </div>
