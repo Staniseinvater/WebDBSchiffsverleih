@@ -1,8 +1,11 @@
-<ul>
-  <li class = "benutzerListe" *ngFor="let user of benutzer">
-    Benutzername: {{ user.benutzername }}, Vorname: {{ user.vorname }}, Nachname: {{ user.nachname }}
-  </li>
-  <li class = "schiffsListe" *ngFor="let schiffe of schiffe">
-    Schiffsname: {{ schiffe.schiffsname }}, HafenID: {{ schiffe.hafenID }}, SchiffsID: {{ schiffe.schiffsID }}
-  </li>
-</ul>
+<div>
+  <h1>Benutzer</h1>
+  <ul>
+    <li *ngFor="let user of benutzer">{{ user.benutzername }} - {{ user.vorname }} {{ user.nachname }}</li>
+  </ul>
+
+  <h1>Schiffe</h1>
+  <ul>
+    <li *ngFor="let schiff of schiffe">{{ schiff.schiffsname }} - Hafen ID: {{ schiff.hafenID }}</li>
+  </ul>
+</div>

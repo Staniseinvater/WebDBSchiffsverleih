@@ -102,6 +102,21 @@ input[type="text"] {
   font-weight: bold;
 }
 
+/* Details Button */
+.details-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.details-button:hover {
+  background-color: #0056b3;
+}
+
 /* Card Details Styles */
 .card-details-container {
   grid-column: span 3;
@@ -116,7 +131,6 @@ input[type="text"] {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
- 
 }
 
 .details-image {
@@ -131,26 +145,19 @@ input[type="text"] {
 }
 
 .details-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  max-height: 0;
+  overflow: hidden;
   background-color: rgba(100, 100, 100, 0.425);
   color: #fff;
-  padding: 20px;
+  padding: 0 20px;
   box-sizing: border-box;
-  transform: translateY(100%);
-  transition: 0.6s ease;
+  transition: max-height 0.6s ease, padding 0.6s ease;
   backdrop-filter: blur(10px); /* Add this line for blur effect */
 }
 
-
-.card-details:hover .details-content {
-  transform: translateY(0);
-}
-
-.details-content:hover {
-  transform: translateY(0) !important;
+.details-content.visible {
+  max-height: 500px; /* Adjust as needed */
+  padding: 20px;
 }
 
 .details-content h3 {
@@ -260,13 +267,10 @@ input[type="text"] {
   }
 }
 
-/* Booking Form Styles */
-.booking-form {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 100%;
-  max-width: 600px;
-  margin-top: 20px;
+.booked-date .mat-calendar-body-cell-content {
+  background-color: red !important;
+  color: white !important;
+  border-radius: 50%;
 }
+
+

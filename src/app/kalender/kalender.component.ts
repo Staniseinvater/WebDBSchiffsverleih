@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-kalender',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule, NgFor, NgIf],
   templateUrl: './kalender.component.html',
   styleUrls: ['./kalender.component.css']
 })
@@ -18,7 +19,6 @@ export class KalenderComponent implements OnInit {
   ngOnInit(): void {
     this.loadBenutzer();
     this.loadSchiffe();
-
   }
 
   loadBenutzer(): void {
