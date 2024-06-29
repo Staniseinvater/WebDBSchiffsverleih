@@ -13,6 +13,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { BookingFormDialogComponent } from '../booking-form-dialog/booking-form-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Schiff } from '../models/schiff.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarConfig } from '@angular/material/snack-bar';
+
 
 interface Hafen {
   id: number;
@@ -36,7 +39,8 @@ interface Hafen {
     MatNativeDateModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ]
 })
 export class SchiffeComponent implements OnInit {
@@ -53,7 +57,9 @@ export class SchiffeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
-    private benutzerService: BenutzerService
+    private benutzerService: BenutzerService,
+    private snackBar: MatSnackBar // Inject MatSnackBar here
+
   ) {
     this.range = this.fb.group({
       start: [],
@@ -61,11 +67,15 @@ export class SchiffeComponent implements OnInit {
     });
   }
 
+  openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
+    this.snackBar.open(message, action, config);
+  }
+
   ngOnInit() {
     this.loadSchiffe();
   }
 
-  loadSchiffe() {
+ loadSchiffe() {
     this.benutzerService.getSchiffe().subscribe({
       next: (schiffe: Schiff[]) => {
         console.log('Fetched schiffe:', schiffe); // Debugging line
@@ -154,7 +164,10 @@ export class SchiffeComponent implements OnInit {
 
   openForm(schiff: Schiff) {
     if (!this.benutzerService.isLoggedIn()) {
-      alert('Bitte melden Sie sich an, um das Buchungsformular auszufüllen.');
+      this.openSnackBar('Sie müssen angemeldet sein, um das Formular zum Buchen auszufüllen', 'Schließen', {
+        duration: 3000,
+        panelClass: ['error-snackbar'],
+      });
     } else {
       const dialogRef = this.dialog.open(BookingFormDialogComponent, {
         width: '400px',

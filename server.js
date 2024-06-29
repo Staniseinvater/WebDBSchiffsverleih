@@ -90,7 +90,7 @@ app.get('/benutzer', authenticateJWT, (req, res) => {
 });
 
 // Handle /schiffe endpoint
-app.get('/schiffe', authenticateJWT, (req, res) => {
+app.get('/schiffe', (req, res) => {
   const schiffeQuery = "SELECT schiff.*, hafen.name as hafenName FROM schiff JOIN hafen ON schiff.hafenId = hafen.id";
   const bilderQuery = "SELECT * FROM schiffbild";
 
@@ -306,3 +306,8 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
+
+
+function isAuthenticated(req) {
+  return req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer';
+}

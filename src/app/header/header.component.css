@@ -116,4 +116,16 @@ nav ul li a:hover::before {
     font-size: 16px;
     padding: 8px 14px; /* Adjust padding for mobile */
   }
+
+}
+
+.welcome-nav {
+  display: flex;
+  justify-content: start;
+  justify-self: start;
+  align-self: flex-start;
+  align-items: start;
+  background-color: #005c85;
+  color: white;
+  font-size: large;
 }
