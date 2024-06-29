@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { HaefenComponent } from "./haefen/haefen.component";
-import { KalenderComponent } from "./kalender/kalender.component";
 import { SchiffeComponent } from "./schiffe/schiffe.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
@@ -22,7 +21,6 @@ import { KontaktComponent } from './kontakt/kontakt.component';
     SchiffeComponent,
     LoginComponent,
     RegisterComponent,
-    KalenderComponent,
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,

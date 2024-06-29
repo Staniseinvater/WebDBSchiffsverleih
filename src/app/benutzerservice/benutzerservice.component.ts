@@ -11,10 +11,12 @@ export class BenutzerService {
   private apiUrl1 = 'http://localhost:8081/schiffe';
   private apiUrl2 = 'http://localhost:8081/haefen';
   private commentsUrl = 'http://localhost:8081/comments';
+  isLoggedInStatus = false;
+
 
   constructor(private http: HttpClient) { }
 
-  private getAuthHeaders() {
+  private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -38,6 +40,11 @@ export class BenutzerService {
     return this.http.post<any>(this.apiUrl + '/login', credentials);
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    this.isLoggedInStatus = false;
+  }
+
   register(credentials: { username: string; password: string, surname: string, name: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/register', credentials);
   }
@@ -55,7 +62,7 @@ export class BenutzerService {
   }
 
   getComments(): Observable<any[]> {
-    return this.http.get<any[]>(this.commentsUrl); // Korrekte URL für Kommentare
+    return this.http.get<any[]>(this.commentsUrl);
   }
 
   addComment(comment: { author: string, location: string, text: string }): Observable<any> {
@@ -64,4 +71,5 @@ export class BenutzerService {
       responseType: 'text' as 'json' 
     });
   }
+
 }
