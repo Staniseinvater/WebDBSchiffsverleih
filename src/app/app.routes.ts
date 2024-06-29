@@ -14,5 +14,5 @@ export const routes: Routes = [
   { path: 'schiffe', component: SchiffeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'kontakt', component: KontaktComponent },
+  { path: 'kontakt', component: KontaktComponent }
 ];

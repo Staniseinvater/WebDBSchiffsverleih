@@ -44,19 +44,38 @@
             </div>
         </div>
     </section>
-<section class="section testimonials">
-    <div class="testimonial-slider" #slider>
-        <div class="slide" *ngFor="let testimonial of testimonials">
+    <section class="section testimonials">
+        <div class="testimonial-slider" #slider>
+          <div class="slide" *ngFor="let testimonial of testimonials">
             <div class="testimonial-content">
-                <p>{{ testimonial.quote }}</p>
-                <p class="author">— {{ testimonial.author }}</p>
+              <p>{{ testimonial.quote }}</p>
+              <p class="author">— {{ testimonial.author }}</p>
             </div>
+          </div>
         </div>
-    </div>
-</section>
-
-        <!-- Hier können wir einen Blog machen und die Sachen von der Datenbank hier einblenden lassen müssen aber die Logik ändern sollte 
-         aber nicht al zu schwer sein da wir einfach eine ngfor schleife machen mit allen Kommentaren              
-         Dies würde in echtzeit passieren damit die kommentare direkt eingefügt werden -->
-    
+    </section>
+    <!-- Add Comment Section -->
+    <section class="section add-comment">
+        <div class="container">
+            <div class="section-title">
+                <h2>Teilen sie ihre Andeken</h2>
+            </div>
+            <form (ngSubmit)="addComment()">
+                <div>
+                  <label for="author">Name:</label>
+                  <input id="author" [(ngModel)]="newComment.author" name="author" required>
+                </div>
+                <div>
+                  <label for="location">Location:</label>
+                  <input id="location" [(ngModel)]="newComment.location" name="location" required>
+                </div>
+                <div>
+                  <label for="text">Comment:</label>
+                  <textarea id="text" [(ngModel)]="newComment.text" name="text" required></textarea>
+                </div>
+                <button type="submit">Add Comment</button>
+              </form>
+              
+        </div>
+    </section>
 </div>

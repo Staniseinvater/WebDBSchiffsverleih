@@ -58,13 +58,126 @@ input[type="text"] {
 
 /* Card Styles */
 .card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
   overflow: hidden;
+}
+
+.card .card-content {
+  position: relative; /* Stellt sicher, dass der Button relativ positioniert ist */
+}
+
+.details-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: absolute;
+  bottom: 7%;
+  width: 100%;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+  opacity: 0;
+  visibility: hidden;
+  backdrop-filter: blur(30px);
+}
+
+.details-content.visible {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s;
+}
+
+.details-content .text-content {
+  flex: 1;
+  margin-right: 20px;
+  text-align: left;
+  color: white;
+}
+
+.details-content .text-content h3,
+.details-content .text-content p {
+  margin: 5px 0;
+}
+
+.details-content .calendar {
+  flex: 0 0 auto;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.details-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.3s;
-  margin-top: 40px;
+  margin-top: 20px;
+}
+
+.details-button:hover {
+  background-color: #0056b3;
+  transition: ease 0.7s;
+}
+
+.weiter-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.weiter-button:hover {
+  background-color: #0056b3;
+}
+
+.details-image {
+  position: relative;
+}
+
+.details-image img {
+  width: 100%;
+  max-height: 450px;
+  object-fit: cover;
+  transition: 0.6s ease;
+  margin: 0px;
+}
+
+.mySlides {
+  display: none;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  width: auto;
+  padding: 16px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  z-index: 1000; /* Stellen Sie sicher, dass die Schaltflächen über dem Bild liegen */
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
 }
 
 .card.expanded {
@@ -115,6 +228,7 @@ input[type="text"] {
 
 .details-button:hover {
   background-color: #0056b3;
+  transition: ease 0.7s;
 }
 
 /* Card Details Styles */
@@ -135,29 +249,6 @@ input[type="text"] {
 
 .details-image {
   position: relative;
-}
-
-.details-image img {
-  width: 100%;
-  max-height: 750px;
-  object-fit: cover;
-  transition: 0.6s ease;
-}
-
-.details-content {
-  max-height: 0;
-  overflow: hidden;
-  background-color: rgba(100, 100, 100, 0.425);
-  color: #fff;
-  padding: 0 20px;
-  box-sizing: border-box;
-  transition: max-height 0.6s ease, padding 0.6s ease;
-  backdrop-filter: blur(10px); /* Add this line for blur effect */
-}
-
-.details-content.visible {
-  max-height: 500px; /* Adjust as needed */
-  padding: 20px;
 }
 
 .details-content h3 {
@@ -220,32 +311,11 @@ input[type="text"] {
   display: block;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 40%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  z-index: 10;
-}
 
 /* Position the "next button" to the right */
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
 }
 
 /* Responsive Styles */

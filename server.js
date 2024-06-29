@@ -283,6 +283,19 @@ app.get('/comments', (req, res) => {
   });
 });
 
+app.post('/comments', (req, res) => {
+  const { author, location, text } = req.body;
+  const query = 'INSERT INTO comments (author, location, text) VALUES (?, ?, ?)';
+  con.query(query, [author, location, text], (error, results) => {
+    if (error) {
+      console.error('Error adding comment:', error);
+      return res.status(500).send({ error: 'Error occurred while adding comment' });
+    }
+    res.status(201).send({ message: 'Comment added successfully' });
+  });
+});
+
+
 process.on('SIGINT', () => {
   con.end(err => {
     if (err) {
