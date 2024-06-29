@@ -117,26 +117,26 @@ app.get('/schiffe', authenticateJWT, (req, res) => {
 });
 
 app.put('/schiffe/:id/hafen', authenticateJWT, (req, res) => {
-    const schiffId = req.params.id;
-    const zielHafenId = req.body.zielHafenId;
+  const schiffId = req.params.id;
+  const zielHafenId = req.body.zielHafenId;
 
-    const query = 'UPDATE schiff SET hafenId = ? WHERE id = ?';
-    con.query(query, [zielHafenId, schiffId], (err, results) => {
-        if (err) {
-            console.error('Error updating hafenId:', err);
-            return res.status(500).send('Error occurred while updating hafenId');
-        }
-        
-        // Get the updated schiff data
-        const selectQuery = 'SELECT schiff.*, hafen.name as hafenName FROM schiff JOIN hafen ON schiff.hafenId = hafen.id WHERE schiff.id = ?';
-        con.query(selectQuery, [schiffId], (err, schiffResults) => {
-            if (err) {
-                console.error('Error fetching updated schiff:', err);
-                return res.status(500).send('Error occurred while fetching updated schiff');
-            }
-            res.send(schiffResults[0]);
-        });
+  const query = 'UPDATE schiff SET hafenId = ? WHERE id = ?';
+  con.query(query, [zielHafenId, schiffId], (err, results) => {
+    if (err) {
+      console.error('Error updating hafenId:', err);
+      return res.status(500).send('Error occurred while updating hafenId');
+    }
+    
+    // Get the updated schiff data
+    const selectQuery = 'SELECT schiff.*, hafen.name as hafenName FROM schiff JOIN hafen ON schiff.hafenId = hafen.id WHERE schiff.id = ?';
+    con.query(selectQuery, [schiffId], (err, schiffResults) => {
+      if (err) {
+        console.error('Error fetching updated schiff:', err);
+        return res.status(500).send('Error occurred while fetching updated schiff');
+      }
+      res.send(schiffResults[0]);
     });
+  });
 });
 
 // Handle /benutzer/login endpoint
@@ -231,6 +231,53 @@ app.get('/haefen', authenticateJWT, (req, res) => {
     if (error) {
       console.error('Error fetching haefen:', error);
       return res.status(500).send('Error occurred while fetching haefen');
+    }
+    res.json(results);
+  });
+});
+
+// Handle /ausleihen endpoint to create a new booking
+app.post('/ausleihen', authenticateJWT, (req, res) => {
+  const { schiffId, name, email, startDate, endDate, zielHafen } = req.body;
+
+  // Function to format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
+
+  const updateHafenQuery = 'UPDATE schiff SET hafenId = ? WHERE id = ?';
+  con.query(updateHafenQuery, [zielHafen, schiffId], (updateErr, updateResults) => {
+    if (updateErr) {
+      console.error('Error updating hafenId:', updateErr);
+      return res.status(500).send('Error occurred while updating hafenId');
+    }
+
+    const insertQuery = 'INSERT INTO ausleihen (schiffId, name, email, startDate, endDate, zielHafen) VALUES (?, ?, ?, ?, ?, ?)';
+    con.query(insertQuery, [schiffId, name, email, formattedStartDate, formattedEndDate, zielHafen], (insertErr, insertResults) => {
+      if (insertErr) {
+        console.error('Error inserting ausleihen:', insertErr);
+        return res.status(500).send('Error occurred while inserting ausleihen');
+      }
+
+      res.status(201).json({ message: 'Booking created successfully and hafenId updated' });
+    });
+  });
+});
+
+// Handle /comments endpoint
+app.get('/comments', (req, res) => {
+  const query = 'SELECT * FROM comments ORDER BY created_at DESC';
+  con.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching comments:', error);
+      return res.status(500).send('Error occurred while fetching comments');
     }
     res.json(results);
   });

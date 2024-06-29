@@ -48,6 +48,7 @@ export class SchiffeComponent implements OnInit {
   detailInserted: boolean[] = [];
   currentSlides: number[] = [];
   range: FormGroup;
+  detailsVisible: boolean[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -108,22 +109,24 @@ export class SchiffeComponent implements OnInit {
       this.filteredSchiffe = selectedHafen.schiffe || [];
       this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
       this.currentSlides = new Array(this.filteredSchiffe.length).fill(0);
+      this.detailsVisible = new Array(this.filteredSchiffe.length).fill(false);
     } else {
       this.filteredSchiffe = [];
       this.detailInserted = [];
       this.currentSlides = [];
+      this.detailsVisible = [];
     }
     this.similarHaefen = [];
     this.searchQuery = '';
   }
 
-  toggleDetails(schiff: Schiff) {
+  toggleDetails(schiff: Schiff, index: number) {
     if (this.selectedSchiff === schiff) {
       this.selectedSchiff = null;
-      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
+      this.detailInserted[index] = false;
     } else {
       this.selectedSchiff = schiff;
-      this.detailInserted = new Array(this.filteredSchiffe.length).fill(false);
+      this.detailInserted[index] = true;
     }
   }
 
@@ -143,6 +146,10 @@ export class SchiffeComponent implements OnInit {
       slides[i].classList.remove('active');
     }
     slides[currentSlide].classList.add('active');
+  }
+
+  toggleDetailsContent(index: number) {
+    this.detailsVisible[index] = !this.detailsVisible[index];
   }
 
   openForm(schiff: Schiff) {

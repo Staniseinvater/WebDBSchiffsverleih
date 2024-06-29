@@ -58,16 +58,37 @@ export class BookingFormDialogComponent implements OnInit {
   onSubmit(): void {
     if (this.bookingForm.valid) {
       console.log('Booking form data:', this.bookingForm.value); // Log form data
+
       this.benutzerService.updateSchiffHafen(this.data.schiffId, this.bookingForm.value.zielHafen).subscribe({
-        next: (response) => {
-          console.log('Update response:', response); // Log response
-          this.dialogRef.close({
-            ...this.bookingForm.value,
-            schiffId: this.data.schiffId // Ensure schiffId is passed back
+        next: (updateResponse) => {
+          console.log('Update response:', updateResponse); // Log response
+
+          const formatDate = (date: Date): string => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+          };
+
+          const bookingData = {
+            ...this.bookingForm.getRawValue(), // Get all form data including disabled fields
+            schiffId: this.data.schiffId,
+            startDate: formatDate(this.bookingForm.getRawValue().startDate),
+            endDate: formatDate(this.bookingForm.getRawValue().endDate)
+          };
+
+          this.benutzerService.addAusleihen(bookingData).subscribe({
+            next: (bookingResponse) => {
+              console.log('Booking response:', bookingResponse); // Log response
+              this.dialogRef.close(bookingData);
+            },
+            error: (bookingError) => {
+              console.error('Fehler beim Hinzufügen der Ausleihe:', bookingError);
+            }
           });
         },
-        error: (error) => {
-          console.error('Fehler beim Aktualisieren des Hafens:', error);
+        error: (updateError) => {
+          console.error('Fehler beim Aktualisieren des Hafens:', updateError);
         }
       });
     }

@@ -1,4 +1,3 @@
-<!-- src/app/components/schiffe/schiffe.component.html -->
 <div class="container">
   <h1>Unsere Schiffe / Boote</h1>
   <p>Hier findest du eine Liste unserer verfügbaren Schiffe.</p>
@@ -11,7 +10,7 @@
 
   <div class="cards-container">
     <ng-container *ngFor="let schiff of filteredSchiffe; let i = index">
-      <div class="card" [class.expanded]="schiff === selectedSchiff" (click)="toggleDetails(schiff)">
+      <div class="card" [class.expanded]="schiff === selectedSchiff" (click)="toggleDetails(schiff, i)">
         <div class="card-header">
           <div class="card-image">
             <img [src]="schiff.bildUrls[0]" alt="{{ schiff.name }}">
@@ -19,10 +18,6 @@
           <div class="card-content">
             <h2>{{ schiff.name }}</h2>
             <p>Typ: {{ schiff.type }}</p>
-            <p>Kapazität: {{ schiff.capacity }} Personen</p>
-            <p>Preis pro Nacht: {{ schiff.preisProNacht }} €</p>
-            <p>Inhalt: {{ schiff.inhalt }}</p>
-            <p>Hafen: {{ schiff.hafenName }}</p> <!-- Ändern zu hafenName -->
             <div class="price">
               <span>{{ schiff.preisProNacht }} €</span>
               <span>/Nacht</span>
@@ -31,7 +26,7 @@
         </div>
       </div>
 
-      <div *ngIf="(i + 1) % 3 === 0 && selectedSchiff && !detailInserted[i]" class="card-details-container" (ngInit)="setDetailInserted(i)">
+      <div *ngIf="schiff === selectedSchiff && detailInserted[i]" class="card-details-container" (ngInit)="setDetailInserted(i)">
         <div class="card-details">
           <div class="details-image">
             <div class="slideshow-container">
@@ -42,24 +37,15 @@
               <a class="next" (click)="plusSlides(1, i)">&#10095;</a>
             </div>
           </div>
-          <div class="details-content">
-            <h3>Buchungsoption</h3>
-            <div class="options">
-              <div class="option">
-                <input type="radio" id="Pres" name="buchungsoption" value="preis" checked>
-                <label for="bestePreise">Bester Preis</label>
-                <span class="price-detail">Inklusive kilometer oder so</span>
-              </div>
-              <div class="option">
-                <input type="radio" id="irgendwasAussdenken" name="buchungsoption" value="müssenUnsWasAusdenken">
-                <label for="flexibelBleiben">müssen uns noch was ausdenken</label>
-                <span class="price-detail">Hier kommt der kalender hin von wann bis wann man den ausleihen will</span>
-              </div>
-            </div>
-            <div class="kilometerpaket">
-              <h4>Kilometerpaket</h4>
-              <p>Unbegrenzte Kilometer</p>
-            </div>
+          <button class="details-button" (click)="toggleDetailsContent(i)">Details anzeigen</button>
+          <div [class.visible]="detailsVisible[i]" class="details-content">
+            <h3>{{ selectedSchiff.name }}</h3>
+            <p>Typ: {{ selectedSchiff.type }}</p>
+            <p>Kapazität: {{ selectedSchiff.capacity }} Personen</p>
+            <p>Preis pro Nacht: {{ selectedSchiff.preisProNacht }} €</p>
+            <p>Inhalt: {{ selectedSchiff.inhalt }}</p>
+            <p>Hafen: {{ selectedSchiff.hafenName }}</p>
+
             <div class="calendar">
               <h4>Kalender</h4>
               <mat-form-field appearance="fill">
@@ -72,7 +58,7 @@
                 <mat-date-range-picker #picker></mat-date-range-picker>
               </mat-form-field>
             </div>
-            <button class="weiter-button" (click)="openForm(schiff)">Weiter</button> <!-- Übergeben Sie das schiff Objekt -->
+            <button class="weiter-button" (click)="openForm(selectedSchiff)">Weiter</button> <!-- Übergeben Sie das selectedSchiff Objekt -->
           </div>
         </div>
       </div>

@@ -1,5 +1,3 @@
-// benutzer.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,6 +10,7 @@ export class BenutzerService {
   private apiUrl = 'http://localhost:8081/benutzer';
   private apiUrl1 = 'http://localhost:8081/schiffe';
   private apiUrl2 = 'http://localhost:8081/haefen';
+  private commentsUrl = 'http://localhost:8081/comments';
 
   constructor(private http: HttpClient) { }
 
@@ -39,7 +38,7 @@ export class BenutzerService {
     return this.http.post<any>(this.apiUrl + '/login', credentials);
   }
 
-  register(credentials: { username: string; password: string, surname: String, name: String}): Observable<any> {
+  register(credentials: { username: string; password: string, surname: string, name: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/register', credentials);
   }
 
@@ -49,5 +48,13 @@ export class BenutzerService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  addAusleihen(bookingData: any): Observable<any> {
+    return this.http.post<any>('http://localhost:8081/ausleihen', bookingData, { headers: this.getAuthHeaders() });
+  }
+
+  getComments(): Observable<any[]> {
+    return this.http.get<any[]>(this.commentsUrl, { headers: this.getAuthHeaders() });
   }
 }
