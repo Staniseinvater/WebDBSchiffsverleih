@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Router } from '@angular/router';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private benutzerService: BenutzerService,
+    private router: Router,
     private snackBar: MatSnackBar // Inject MatSnackBar here
   ) { }
 
@@ -48,6 +50,7 @@ export class LoginComponent implements OnInit {
           duration: 3000,
           panelClass: ['success-snackbar']
         });
+        this.router.navigate(['/']);
       },
       error: (error) => {
         let errorMessage = 'Serverfehler';
