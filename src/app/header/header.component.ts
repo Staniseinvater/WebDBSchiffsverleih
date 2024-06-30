@@ -13,45 +13,53 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   menuOpen = false;
+  profileMenuOpen = false;
   isLoggedIn: boolean = false;
   userName: string = '';
-  private loginSubscription: Subscription;
-  private userNameSubscription: Subscription;
+  private subscription: Subscription = new Subscription();
 
-  constructor(private benutzerService: BenutzerService) {
-    this.loginSubscription = new Subscription();
-    this.userNameSubscription = new Subscription();
-  }
+  constructor(private benutzerService: BenutzerService) {}
 
   ngOnInit() {
-    this.userName = localStorage.getItem('userName') || 'Benutzer';
-    this.loginSubscription = this.benutzerService.isLoggedIn$.subscribe(
-      loggedIn => {
+    this.subscription.add(
+      this.benutzerService.isLoggedIn$.subscribe(loggedIn => {
         this.isLoggedIn = loggedIn;
-      }
+        if (!loggedIn) {
+          this.userName = '';
+          this.profileMenuOpen = false;
+        }
+      })
     );
 
-    this.userNameSubscription = this.benutzerService.userName$.subscribe(
-      name => {
+    this.subscription.add(
+      this.benutzerService.userName$.subscribe(name => {
         this.userName = name;
-      }
+      })
     );
   }
 
   ngOnDestroy() {
-    if (this.loginSubscription) {
-      this.loginSubscription.unsubscribe();
-    }
-    if (this.userNameSubscription) {
-      this.userNameSubscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+    if (this.menuOpen) {
+      this.profileMenuOpen = false;
+    }
+  }
+
+  toggleProfileMenu() {
+    this.profileMenuOpen = !this.profileMenuOpen;
   }
 
   closeMenu() {
     this.menuOpen = false;
+    this.profileMenuOpen = false;
+  }
+
+  logout() {
+    this.benutzerService.logout();
+    this.closeMenu();
   }
 }

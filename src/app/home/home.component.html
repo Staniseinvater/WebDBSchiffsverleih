@@ -3,86 +3,84 @@
     <header class="header">
         <div class="overlay">
             <h1 class="subtitle">Erkunde die Welt</h1>
-            <h1 class="title">Cabs</h1>  
-        </div>  
+            <h1 class="title">Cabs</h1>
+        </div>
         <div class="shape">
             <svg viewBox="0 0 1500 200">
-                <path d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z"/>
+                <path
+                    d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z" />
             </svg>
-        </div>  
+        </div>
     </header>
     <!-- End Of Page Header -->
 
     <div class="container">
-        <div *ngIf="isLoggedIn" class="welcome-message">
-            <p>Willkommen, {{ userName }}</p>
-        </div>
-    <section class="section" id="our-service">
-        <div class="container">
-            <div class="section-title">
-                <h2>Unsere Services</h2>
-                <p></p>
-            </div>
-            <div class="row">
-                <div class="service-card">
-                    <div class="card-body">
-                        <h6>01</h6>
-                        <h3 class="card-title">Große Auswahl an Booten</h3>
-                        <p>Wir bieten eine breite Palette an Booten für alle Bedürfnisse und Vorlieben. Egal ob Sie ein gemütliches Familienboot oder ein schnelles Sportboot suchen, bei uns werden Sie fündig.</p>
+        <section class="section" id="our-service">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Unsere Services</h2>
+                    <p></p>
+                </div>
+                <div class="row">
+                    <div class="service-card">
+                        <div class="card-body">
+                            <h6>01</h6>
+                            <h3 class="card-title">Große Auswahl an Booten</h3>
+                            <p>Wir bieten eine breite Palette an Booten für alle Bedürfnisse und Vorlieben. Egal ob Sie
+                                ein gemütliches Familienboot oder ein schnelles Sportboot suchen, bei uns werden Sie
+                                fündig.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-body">
+                            <h6>02</h6>
+                            <h3 class="card-title">Flexible Mietzeiten</h3>
+                            <p>Unsere Mietzeiten sind flexibel, um Ihren Anforderungen gerecht zu werden. Sie können
+                                Boote stundenweise, tageweise oder für längere Zeiträume mieten.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-body">
+                            <h6>03</h6>
+                            <h3 class="card-title">Sicherheitsausrüstung inklusive</h3>
+                            <p>Die Sicherheit unserer Kunden hat oberste Priorität. Deshalb stellen wir sicher, dass
+                                alle unsere Boote mit der notwendigen Sicherheitsausrüstung ausgestattet sind.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="service-card">
-                    <div class="card-body">
-                        <h6>02</h6>
-                        <h3 class="card-title">Flexible Mietzeiten</h3>
-                        <p>Unsere Mietzeiten sind flexibel, um Ihren Anforderungen gerecht zu werden. Sie können Boote stundenweise, tageweise oder für längere Zeiträume mieten.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="card-body">
-                        <h6>03</h6>
-                        <h3 class="card-title">Sicherheitsausrüstung inklusive</h3>
-                        <p>Die Sicherheit unserer Kunden hat oberste Priorität. Deshalb stellen wir sicher, dass alle unsere Boote mit der notwendigen Sicherheitsausrüstung ausgestattet sind.</p>
+            </div>
+        </section>
+        <section class="section testimonials">
+            <div class="testimonial-slider" #slider>
+                <div class="slide" *ngFor="let testimonial of testimonials">
+                    <div class="testimonial-content">
+                        <p>{{ testimonial.quote }}</p>
+                        <p class="author">— {{ testimonial.author }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="section testimonials">
-        <div class="testimonial-slider" #slider>
-          <div class="slide" *ngFor="let testimonial of testimonials">
-            <div class="testimonial-content">
-              <p>{{ testimonial.quote }}</p>
-              <p class="author">— {{ testimonial.author }}</p>
+        </section>
+        <!-- Add Comment Section -->
+        <section class="section add-comment">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Teilen sie ihre Andeken</h2>
+                </div>
+                <form (ngSubmit)="addComment()">
+                    <div>
+                        <label for="author">Name:</label>
+                        <input id="author" [(ngModel)]="newComment.author" name="author" required>
+                    </div>
+                    <div>
+                        <label for="location">Location:</label>
+                        <input id="location" [(ngModel)]="newComment.location" name="location" required>
+                    </div>
+                    <div>
+                        <label for="text">Comment:</label>
+                        <textarea id="text" [(ngModel)]="newComment.text" name="text" required></textarea>
+                    </div>
+                    <button type="submit">Add Comment</button>
+                </form>
             </div>
-          </div>
-        </div>
-    </section>
-    <!-- Add Comment Section -->
-    <section class="section add-comment">
-        <div class="container">
-            <div class="section-title">
-                <h2>Teilen sie ihre Andeken</h2>
-            </div>
-            <form (ngSubmit)="addComment()">
-                <div>
-                  <label for="author">Name:</label>
-                  <input id="author" [(ngModel)]="newComment.author" name="author" required>
-                </div>
-                <div>
-                  <label for="location">Location:</label>
-                  <input id="location" [(ngModel)]="newComment.location" name="location" required>
-                </div>
-                <div>
-                  <label for="text">Comment:</label>
-                  <textarea id="text" [(ngModel)]="newComment.text" name="text" required></textarea>
-                </div>
-                <button type="submit">Add Comment</button>
-              </form>
-              
-        </div>
-    </section>
-    <div class="button-group">
-    <button type="button" id="ausloggen-btn" (click)="logout()">Ausloggen</button>
-  </div>
-</div>
+        </section>
+    </div>

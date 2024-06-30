@@ -62,11 +62,11 @@ export class BenutzerService {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userName');
-    this.isLoggedInSubject.next(false);
-    this.userNameSubject.next('');
-  }
+  localStorage.removeItem('token');
+  localStorage.removeItem('userName');
+  this.isLoggedInSubject.next(false);
+  this.userNameSubject.next('');
+}
 
   register(credentials: { username: string; password: string, surname: string, name: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/register', credentials);

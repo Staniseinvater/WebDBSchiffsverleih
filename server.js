@@ -283,7 +283,7 @@ app.get('/comments', (req, res) => {
   });
 });
 
-app.post('/comments', (req, res) => {
+app.post('/comments', authenticateJWT, (req, res) => {
   const { author, location, text } = req.body;
   const query = 'INSERT INTO comments (author, location, text) VALUES (?, ?, ?)';
   con.query(query, [author, location, text], (error, results) => {
