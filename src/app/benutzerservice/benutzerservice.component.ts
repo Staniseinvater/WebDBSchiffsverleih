@@ -3,10 +3,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Schiff } from '../models/schiff.model';
+import { io, Socket } from 'socket.io-client';
 
 interface LoginResponse {
   token: string;
   userName: string;
+}
+
+interface TicketUpdate {
+  message: string;
+}
+
+interface NewComment {
+  author: string;
+  location: string;
+  text: string;
 }
 
 @Injectable({
@@ -17,6 +28,7 @@ export class BenutzerService {
   private apiUrl1 = 'http://localhost:8081/schiffe';
   private apiUrl2 = 'http://localhost:8081/haefen';
   private commentsUrl = 'http://localhost:8081/comments';
+  private socket: Socket;
 
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.checkInitialLoginStatus());
   private userNameSubject = new BehaviorSubject<string>(localStorage.getItem('userName') || '');
@@ -24,7 +36,9 @@ export class BenutzerService {
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   userName$ = this.userNameSubject.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.socket = io('http://localhost:8081');
+  }
 
   private checkInitialLoginStatus(): boolean {
     return !!localStorage.getItem('token');
@@ -62,11 +76,11 @@ export class BenutzerService {
   }
 
   logout() {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userName');
-  this.isLoggedInSubject.next(false);
-  this.userNameSubject.next('');
-}
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    this.isLoggedInSubject.next(false);
+    this.userNameSubject.next('');
+  }
 
   register(credentials: { username: string; password: string, surname: string, name: string }): Observable<any> {
     return this.http.post<any>(this.apiUrl + '/register', credentials);
@@ -96,6 +110,22 @@ export class BenutzerService {
     return this.http.post<any>(this.commentsUrl, comment, { 
       headers: this.getAuthHeaders(),
       responseType: 'text' as 'json'
+    });
+  }
+
+  onTicketUpdate(): Observable<TicketUpdate> {
+    return new Observable(observer => {
+      this.socket.on('ticketUpdate', (data: TicketUpdate) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  onNewComment(): Observable<NewComment> {
+    return new Observable(observer => {
+      this.socket.on('newComment', (data: NewComment) => {
+        observer.next(data);
+      });
     });
   }
 }
