@@ -16,7 +16,6 @@ import { Schiff } from '../models/schiff.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSnackBarConfig } from '@angular/material/snack-bar';
 
-
 interface Hafen {
   id: number;
   name: string;
@@ -59,7 +58,6 @@ export class SchiffeComponent implements OnInit {
     public dialog: MatDialog,
     private benutzerService: BenutzerService,
     private snackBar: MatSnackBar // Inject MatSnackBar here
-
   ) {
     this.range = this.fb.group({
       start: [],
@@ -73,9 +71,26 @@ export class SchiffeComponent implements OnInit {
 
   ngOnInit() {
     this.loadSchiffe();
+
+    // Abonniere WebSocket-Events
+    this.benutzerService.onTicketUpdate().subscribe({
+      next: (data) => {
+        console.log('Ticket Update:', data);
+        this.loadSchiffe(); // Aktualisieren Sie die Schiffsliste bei einem Ticket-Update
+      },
+      error: (err) => console.error('Error receiving ticket updates', err)
+    });
+
+    this.benutzerService.onNewComment().subscribe({
+      next: (data) => {
+        console.log('New Comment:', data);
+        this.loadComments(); // Aktualisieren Sie die Kommentarliste bei neuen Kommentaren
+      },
+      error: (err) => console.error('Error receiving new comments', err)
+    });
   }
 
- loadSchiffe() {
+  loadSchiffe() {
     this.benutzerService.getSchiffe().subscribe({
       next: (schiffe: Schiff[]) => {
         console.log('Fetched schiffe:', schiffe); // Debugging line
@@ -85,6 +100,16 @@ export class SchiffeComponent implements OnInit {
         console.log('Similar Hafens:', this.similarHaefen); // Debugging line
       },
       error: (err) => console.error('Failed to load schiffe', err)
+    });
+  }
+
+  loadComments() {
+    this.benutzerService.getComments().subscribe({
+      next: (comments) => {
+        console.log('Fetched comments:', comments);
+        // Implementieren Sie die Logik zum Aktualisieren der Kommentare hier
+      },
+      error: (err) => console.error('Failed to load comments', err)
     });
   }
 

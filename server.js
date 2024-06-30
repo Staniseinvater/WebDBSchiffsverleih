@@ -5,8 +5,19 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const http = require('http');
+const { Server } = require('socket.io');
 const saltRounds = 10;
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:4200", // Angular development server address
+    methods: ["GET", "POST"]
+  }
+});
+
 const PORT = 8081;
 const JWT_SECRET = 'jwtSecret';
 
@@ -32,7 +43,7 @@ app.use(allowCrossDomain);
 app.use(express.static(path.join(__dirname, '/dist/WebDBSchiffsverleih-1/browser')));
 
 // Start the server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
 
@@ -75,6 +86,19 @@ const authenticateJWT = (req, res, next) => {
   } else {
     res.sendStatus(401);
   }
+};
+
+// WebSocket connection
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+// Function to notify all clients about ticket updates
+const notifyTicketUpdate = () => {
+  io.emit('ticketUpdate', { message: 'Ticket status updated' });
 };
 
 // Handle /benutzer endpoint
@@ -135,6 +159,9 @@ app.put('/schiffe/:id/hafen', authenticateJWT, (req, res) => {
         return res.status(500).send('Error occurred while fetching updated schiff');
       }
       res.send(schiffResults[0]);
+
+      // Notify clients about the update
+      notifyTicketUpdate();
     });
   });
 });
@@ -267,6 +294,9 @@ app.post('/ausleihen', authenticateJWT, (req, res) => {
       }
 
       res.status(201).json({ message: 'Booking created successfully and hafenId updated' });
+
+      // Notify clients about the update
+      notifyTicketUpdate();
     });
   });
 });
@@ -292,9 +322,11 @@ app.post('/comments', authenticateJWT, (req, res) => {
       return res.status(500).send({ error: 'Error occurred while adding comment' });
     }
     res.status(201).send({ message: 'Comment added successfully' });
+    
+    // Notify clients about the new comment
+    io.emit('newComment', { author, location, text });
   });
 });
-
 
 process.on('SIGINT', () => {
   con.end(err => {
@@ -306,7 +338,6 @@ process.on('SIGINT', () => {
     process.exit(0);
   });
 });
-
 
 function isAuthenticated(req) {
   return req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer';

@@ -148,7 +148,7 @@ input[type="text"] {
 
 .details-image img {
   width: 100%;
-  max-height: 450px;
+  max-height: 500px;
   object-fit: cover;
   transition: 0.6s ease;
   margin: 0px;
