@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { BenutzerService } from '../benutzerservice/benutzerservice.component';
 
 @Component({
@@ -20,7 +21,8 @@ import { BenutzerService } from '../benutzerservice/benutzerservice.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ]
 })
 export class BookingFormDialogComponent implements OnInit {
@@ -31,7 +33,8 @@ export class BookingFormDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<BookingFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private benutzerService: BenutzerService
+    private benutzerService: BenutzerService,
+    private snackBar: MatSnackBar
   ) {
     console.log('Received data in dialog:', data); // Log the data received
     this.bookingForm = this.fb.group({
@@ -55,8 +58,23 @@ export class BookingFormDialogComponent implements OnInit {
     });
   }
 
+  openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
+    this.snackBar.open(message, action, config);
+  }
+
   onSubmit(): void {
     if (this.bookingForm.valid) {
+      const startDate = this.bookingForm.get('startDate')?.value;
+      const endDate = this.bookingForm.get('endDate')?.value;
+
+      if (!startDate || !endDate) {
+        this.openSnackBar('Bitte wählen Sie ein Datum aus', 'Schließen', {
+          duration: 3000,
+          panelClass: ['error-snackbar']
+        });
+        return; // Exit the function if dates are not filled
+      }
+
       console.log('Booking form data:', this.bookingForm.value); // Log form data
 
       this.benutzerService.updateSchiffHafen(this.data.schiffId, this.bookingForm.value.zielHafen).subscribe({
