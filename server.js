@@ -342,3 +342,26 @@ process.on('SIGINT', () => {
 function isAuthenticated(req) {
   return req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer';
 }
+app.get('/schiffe/:id/gebuchte-daten', authenticateJWT, (req, res) => {
+  const schiffId = req.params.id;
+  const query = 'SELECT startDate, endDate FROM ausleihen WHERE schiffId = ?';
+
+  con.query(query, [schiffId], (error, results) => {
+    if (error) {
+      console.error('Error fetching gebuchte daten:', error);
+      return res.status(500).send('Error occurred while fetching gebuchte daten');
+    }
+    res.json(results);
+  });
+});
+
+app.get('/haefen', (req, res) => {
+  const query = 'SELECT * FROM hafen';
+  con.query(query, (error, results) => {
+    if (error) {
+      console.error('Error fetching haefen:', error);
+      return res.status(500).send('Error occurred while fetching haefen');
+    }
+    res.json(results);
+  });
+});

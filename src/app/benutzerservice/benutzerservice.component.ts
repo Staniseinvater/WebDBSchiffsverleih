@@ -27,6 +27,7 @@ export class BenutzerService {
   private apiUrl = 'http://localhost:8081/benutzer';
   private apiUrl1 = 'http://localhost:8081/schiffe';
   private apiUrl2 = 'http://localhost:8081/haefen';
+  
   private commentsUrl = 'http://localhost:8081/comments';
   private socket: Socket;
 
@@ -128,4 +129,9 @@ export class BenutzerService {
       });
     });
   }
+
+  getBookedDates(schiffId: number): Observable<{ startDate: string, endDate: string }[]> {
+    return this.http.get<{ startDate: string, endDate: string }[]>(`${this.apiUrl1}/${schiffId}/gebuchte-daten`, { headers: this.getAuthHeaders() });
+  }
+
 }

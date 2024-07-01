@@ -14,14 +14,12 @@
   </div>
 </div>
 
-
 <div class="details-container" *ngIf="selectedHafen">
   <img [src]="selectedHafen.imageUrl" alt="{{ selectedHafen.name }}">
   <div class="hafen-details">
     <h3>{{ selectedHafen.name }}</h3>
     <p>Straße: {{ selectedHafen.street }}</p>
     <p>Capacity: {{ selectedHafen.capacity }}</p>
-    <button routerLink="/schiffe" class="button-container">Zu den Schiffen</button>
+    <button (click)="navigateToSchiffe(selectedHafen.id)" class="button-container">Zu den Schiffen</button>
   </div>
 </div>
-
