@@ -9,6 +9,7 @@
     text-align: center;
     color: var(--white);
     overflow: hidden;
+    background-attachment: fixed;
 }
 
 .header .overlay {
@@ -154,7 +155,7 @@
 .testimonials {
     position: relative;
     height: 50vh;
-    background: url(/assets/bild1.png) no-repeat center center/cover;
+    background: url(/assets/123.jpg) no-repeat center center/cover;
     display: flex;
     align-items: center;
     justify-content: center;

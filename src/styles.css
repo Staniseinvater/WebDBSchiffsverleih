@@ -24,6 +24,11 @@ p {
 
 .error-snackbar {
   --mat-snack-bar-button-color: #fff;
-  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-container-color: #f44336c7;
   --mdc-snackbar-supporting-text-color: #fff;
 }
+.mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  background-color: rgba(235, 0, 0, 0.521);
+  color: white;
+}
+

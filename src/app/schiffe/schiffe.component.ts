@@ -52,6 +52,7 @@ export class SchiffeComponent implements OnInit {
   currentSlides: number[] = [];
   range: FormGroup;
   detailsVisible: boolean[] = [];
+  bookedDates: Date[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -162,6 +163,7 @@ export class SchiffeComponent implements OnInit {
     } else {
       this.selectedSchiff = schiff;
       this.detailInserted[index] = true;
+      this.loadBookedDates(schiff.id); // Lade die gebuchten Daten für das ausgewählte Schiff
     }
   }
 
@@ -188,31 +190,50 @@ export class SchiffeComponent implements OnInit {
   }
 
   openForm(schiff: Schiff) {
+    const startDate = this.range.controls['start'].value;
+    const endDate = this.range.controls['end'].value;
+  
     if (!this.benutzerService.isLoggedIn()) {
       this.openSnackBar('Sie müssen angemeldet sein, um das Formular zum Buchen auszufüllen', 'Schließen', {
         duration: 3000,
         panelClass: ['error-snackbar'],
       });
-    } else {
+      return;
+    }
+  
+    // Load booked dates and then check for conflicts
+    this.loadBookedDates(schiff.id);
+  
+    // Delay the execution to wait for bookedDates to be populated
+    setTimeout(() => {
+      // Check for date conflicts
+      if (this.checkDateConflict(startDate, endDate)) {
+        this.openSnackBar('Das Schiff ist bereits in dem ausgewählten Zeitraum gebucht', 'Schließen', {
+          duration: 3000,
+          panelClass: ['error-snackbar'],
+        });
+        return;
+      }
+  
       const dialogRef = this.dialog.open(BookingFormDialogComponent, {
         width: '400px',
         data: {
-          startDate: this.range.controls['start'].value,
-          endDate: this.range.controls['end'].value,
+          startDate,
+          endDate,
           schiffId: schiff.id // Übergeben Sie die schiffId
         }
       });
-
+  
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
           console.log('Form result:', result); // Log form result
-
+  
           // Find the ship's current harbor and remove it from there
           const currentHafen = this.hafens.find(h => h.schiffe!.some(s => s.id === result.schiffId));
           if (currentHafen) {
             currentHafen.schiffe = currentHafen.schiffe!.filter(s => s.id !== result.schiffId);
           }
-
+  
           // Add the ship to the new harbor
           const newHafen = this.hafens.find(h => h.id === result.zielHafen);
           if (newHafen) {
@@ -223,14 +244,54 @@ export class SchiffeComponent implements OnInit {
               newHafen.schiffe!.push(movedSchiff);
             }
           }
-
+  
           // Close the details card
           this.selectedSchiff = null;
-
+  
           // Reload the ships to reflect changes
           this.loadSchiffe();
+  
+          // Show success snackbar
+          this.openSnackBar(`Buchung erfolgreich, das Schiff befindet sich nun im ${newHafen?.name} Hafen`, 'Schließen', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          });
         }
       });
-    }
+    }, 1000); // Adjust the delay as needed to ensure `bookedDates` are loaded
   }
+  
+  checkDateConflict(startDate: Date, endDate: Date): boolean {
+    return this.bookedDates.some(bookedDate => {
+      return (
+        (startDate >= bookedDate && startDate <= bookedDate) ||
+        (endDate >= bookedDate && endDate <= bookedDate) ||
+        (startDate <= bookedDate && endDate >= bookedDate)
+      );
+    });
+  }
+
+  loadBookedDates(schiffId: number) {
+    this.benutzerService.getBookedDates(schiffId).subscribe({
+      next: (dates: { startDate: string, endDate: string }[]) => {
+        this.bookedDates = dates.flatMap(date => {
+          const start = new Date(date.startDate);
+          const end = new Date(date.endDate);
+          const datesArray = [];
+          for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
+            datesArray.push(new Date(d));
+          }
+          return datesArray;
+        });
+      },
+      error: (err) => console.error('Failed to load booked dates', err)
+    });
+  }
+  
+  myDateFilter = (d: Date | null): boolean => {
+    const date = (d || new Date()).setHours(0, 0, 0, 0);
+    return !this.bookedDates.some(booked => booked.setHours(0, 0, 0, 0) === date);
+  };
+  
+
 }
