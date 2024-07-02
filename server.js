@@ -252,7 +252,7 @@ app.post('/benutzer/register', (req, res) => {
 });
 
 // Handle /haefen endpoint to fetch haefen
-app.get('/haefen', authenticateJWT, (req, res) => {
+app.get('/haefen', (req, res) => {
   const query = 'SELECT * FROM hafen';
   con.query(query, (error, results) => {
     if (error) {
