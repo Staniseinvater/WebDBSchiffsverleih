@@ -1,4 +1,3 @@
-/* Header Styling */
 header {
   background-color: #ffffff;
   padding: 10px 0;
@@ -21,7 +20,7 @@ header {
   top: 10px;
 }
 
-/* Navigation Styling */
+
 nav {
   display: flex;
   justify-content: space-around;
@@ -52,68 +51,67 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #f0f8ff; /* Very light blue */
+  background-color: #f0f8ff;
 }
 
-/* Icon padding */
 .icon-padding {
   margin-right: 8px;
 }
 
 
-/* Profile icon styles */
+
 .profile-icon {
   font-size: 24px;
   color: #005c85;
 }
 
-/* Profile menu styles */
+
 .profile-menu {
   position: relative;
 }
 
-.profile-menu > ul {
+.profile-menu>ul {
   display: none;
   position: absolute;
   top: 100%;
   right: 0;
   background-color: #ffffff;
   min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
 }
 
-.profile-menu > ul.open {
+.profile-menu>ul.open {
   display: block;
 }
 
-.profile-menu > ul > li {
+.profile-menu>ul>li {
   padding: 0;
 }
 
-.profile-menu > ul > li.username {
+.profile-menu>ul>li.username {
   color: #005c85;
   padding: 15px;
   font-weight: bold;
 }
 
-.profile-menu > ul > li.logout a {
+.profile-menu>ul>li.logout a {
   color: #005c85;
   padding: 15px;
   display: block;
   transition: background-color 0.3s ease;
 }
 
-.profile-menu > ul > li.logout a:hover {
+.profile-menu>ul>li.logout a:hover {
   background-color: #f0f8ff;
 }
 
-.profile-menu > ul > li.logout i {
+.profile-menu>ul>li.logout i {
   margin-right: 10px;
 }
 
-/* Responsive Styling */
+
 @media (max-width: 768px) {
   .burger-menu {
     display: block;
@@ -143,13 +141,14 @@ nav ul li a:hover {
     padding: 15px;
   }
 
-  .profile-menu > ul {
+  .profile-menu>ul {
     position: static;
     width: 100%;
     box-shadow: none;
   }
 
-  .login-button, .register-button {
+  .login-button,
+  .register-button {
     width: 100%;
     border-radius: 5px;
   }

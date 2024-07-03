@@ -1,19 +1,20 @@
 body {
   margin: 0;
 }
+
 h1 {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   letter-spacing: 2px;
   font-size: 48px;
-  color: rgb(0, 0, 0); /* Ensure text is visible on dark background */
+  color: rgb(0, 0, 0);
 }
 
 p {
   font-family: 'Lato', sans-serif;
   letter-spacing: 1px;
   font-size: 14px;
-  color: rgb(0, 0, 0); /* Ensure text is visible on dark background */
+  color: rgb(0, 0, 0);
 }
 
 .success-snackbar {
@@ -27,8 +28,8 @@ p {
   --mdc-snackbar-container-color: #f44336c7;
   --mdc-snackbar-supporting-text-color: #fff;
 }
+
 .mat-calendar-body-disabled .mat-calendar-body-cell-content {
   background-color: rgba(235, 0, 0, 0.521);
   color: white;
 }
-

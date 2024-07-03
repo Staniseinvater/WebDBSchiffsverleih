@@ -16,7 +16,6 @@ export class HaefenComponent implements OnInit {
   hafens: Hafen[] = [
     { id: 1, name: 'Hamburg', lat: 53.5511, lon: 9.9937 },
     { id: 2, name: 'Rotterdam', lat: 51.9225, lon: 4.47917 },
-    // Weitere Häfen hinzufügen
   ];
 
   filteredHafens: Hafen[] = [];

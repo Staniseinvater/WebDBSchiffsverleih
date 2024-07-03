@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:4200", // Angular development server address
+    origin: "http://localhost:4200",
     methods: ["GET", "POST"]
   }
 });
@@ -21,7 +21,7 @@ const io = new Server(server, {
 const PORT = 8081;
 const JWT_SECRET = 'jwtSecret';
 
-// Middleware to allow cross-domain requests
+
 const allowCrossDomain = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -29,41 +29,33 @@ const allowCrossDomain = (req, res, next) => {
   next();
 };
 
-// Support parsing of application/json type post data
 app.use(bodyParser.json());
 
-// Support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Use CORS and custom cross-domain middleware
 app.use(cors());
 app.use(allowCrossDomain);
 
-// Serve static files
 app.use(express.static(path.join(__dirname, '/dist/web-dbschiffsverleih/browser')));
 
-// Start the server
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`App listening on port ${PORT}`);
 });
 
-// Serve the main application
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: path.join(__dirname, '/dist/web-dbschiffsverleih/browser') });
 });
 
-// MySQL connection configuration
 const dbConfig = {
   database: "schiff_verleih",
-  host: "0.0.0.0",  // Stellt sicher, dass die Verbindung auf alle IP-Adressen hört
+  host: "0.0.0.0",
   port: "3306",
-  user: "neuer_benutzer",  // Verwenden Sie den neuen Benutzer
+  user: "neuer_benutzer",
   password: "passwort",
 };
 
 const con = mysql.createConnection(dbConfig);
 
-// Connect to the database
 con.connect(err => {
   if (err) {
     console.error('Error connecting to MySQL:', err.stack);
@@ -72,7 +64,6 @@ con.connect(err => {
   console.log('Connected to MySQL as id ' + con.threadId);
 });
 
-// Middleware to check JWT token
 const authenticateJWT = (req, res, next) => {
   const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
   if (token) {
@@ -88,7 +79,6 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
-// WebSocket connection
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('disconnect', () => {
@@ -96,7 +86,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// Function to notify all clients about ticket updates
 const notifyTicketUpdate = () => {
   io.emit('ticketUpdate', { message: 'Ticket status updated' });
 };
@@ -150,7 +139,7 @@ app.put('/schiffe/:id/hafen', authenticateJWT, (req, res) => {
       console.error('Error updating hafenId:', err);
       return res.status(500).send('Error occurred while updating hafenId');
     }
-    
+
     // Get the updated schiff data
     const selectQuery = 'SELECT schiff.*, hafen.name as hafenName FROM schiff JOIN hafen ON schiff.hafenId = hafen.id WHERE schiff.id = ?';
     con.query(selectQuery, [schiffId], (err, schiffResults) => {
@@ -267,7 +256,6 @@ app.get('/haefen', authenticateJWT, (req, res) => {
 app.post('/ausleihen', authenticateJWT, (req, res) => {
   const { schiffId, name, email, startDate, endDate, zielHafen } = req.body;
 
-  // Function to format date
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -295,7 +283,6 @@ app.post('/ausleihen', authenticateJWT, (req, res) => {
 
       res.status(201).json({ message: 'Booking created successfully and hafenId updated' });
 
-      // Notify clients about the update
       notifyTicketUpdate();
     });
   });
@@ -322,8 +309,7 @@ app.post('/comments', authenticateJWT, (req, res) => {
       return res.status(500).send({ error: 'Error occurred while adding comment' });
     }
     res.status(201).send({ message: 'Comment added successfully' });
-    
-    // Notify clients about the new comment
+
     io.emit('newComment', { author, location, text });
   });
 });

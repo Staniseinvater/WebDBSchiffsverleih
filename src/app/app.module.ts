@@ -15,7 +15,6 @@ import { BookingFormDialogComponent } from './booking-form-dialog/booking-form-d
 
 @NgModule({
   declarations: [
-    // Füge hier alle anderen Komponenten hinzu
   ],
   imports: [
     BrowserModule,
@@ -31,9 +30,8 @@ import { BookingFormDialogComponent } from './booking-form-dialog/booking-form-d
     MatFormFieldModule,
     MatButtonModule,
     MatDialogModule,
-    // Füge hier alle anderen Module hinzu
   ],
   providers: [],
-  bootstrap: [] // Da wir bootstrapApplication verwenden, bleibt dies leer
+  bootstrap: []
 })
 export class AppModule { }

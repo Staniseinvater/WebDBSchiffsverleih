@@ -1,13 +1,11 @@
-/* Hintergrund und Layout des Dialogs */
 .booking-form-container {
   padding: 10px;
   border-radius: 8px;
- 
+
   max-width: 500px;
   margin: 0 auto;
 }
 
-/* Titel des Formulars */
 h2 {
   font-size: 24px;
   font-weight: bold;
@@ -16,20 +14,19 @@ h2 {
   color: white;
 }
 
-/* Formular-Layout */
+
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Volle Breite für Formularelemente */
+
 mat-form-field {
   width: 100%;
   margin-bottom: 20px;
 }
 
-/* Styling für Mat-Form-Felder */
 .mat-form-field {
   background: #ffffff;
   border-radius: 4px;
@@ -43,7 +40,6 @@ mat-form-field {
   color: #e0e0e0;
 }
 
-/* Button-Gruppe */
 .button-group {
   display: flex;
   justify-content: space-between;
@@ -51,7 +47,6 @@ mat-form-field {
   margin-top: 30px;
 }
 
-/* Styling für Buttons */
 button[mat-raised-button] {
   min-width: 120px;
   box-shadow: none;
@@ -63,7 +58,6 @@ button[mat-button] {
   color: #f44336;
 }
 
-/* Responsives Design */
 @media (max-width: 600px) {
   .booking-form-container {
     padding: 20px;
@@ -79,6 +73,4 @@ button[mat-button] {
     margin-bottom: 10px;
     width: 100%;
   }
-
-  
 }

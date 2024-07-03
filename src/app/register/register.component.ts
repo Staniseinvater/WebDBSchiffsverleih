@@ -17,17 +17,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm!: FormGroup; 
-  hidePassword: boolean = true; 
-  hideConfirmPassword: boolean = true; 
-  faEye = faEye; 
-  faEyeSlash = faEyeSlash; 
+  registerForm!: FormGroup;
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 
 
   constructor(
     private fb: FormBuilder,
     private benutzerService: BenutzerService,
-    private snackBar: MatSnackBar 
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -86,18 +86,3 @@ export class RegisterComponent implements OnInit {
     }
   }
 }
-
-// 200 - OK *
-// 201 - Created
-// 204 - No Content
-// 400 - Bad Request *
-// 401 - Unauthorized *
-// 403 - Forbidden *
-// 404 - Not Found *
-// 405 - Method Not Allowed
-// 409 - Conflict *
-// 415 - Unsupported Media Type
-// 422 - Unprocessable Entity
-// 500 - Internal Server Error *
-// 502 - Bad Gateway
-// 503 - Service Unavailable

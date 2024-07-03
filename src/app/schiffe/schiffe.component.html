@@ -2,7 +2,8 @@
   <h1>Unsere Schiffe / Boote</h1>
   <p>Hier findest du eine Liste unserer verfügbaren Schiffe.</p>
 
-  <input type="text" placeholder="Hafen suchen..." [(ngModel)]="searchQuery" (focus)="onSearch($event)" (input)="onSearch($event)">
+  <input type="text" placeholder="Hafen suchen..." [(ngModel)]="searchQuery" (focus)="onSearch($event)"
+    (input)="onSearch($event)">
 
   <ul *ngIf="similarHaefen.length > 0" class="scrollable-list">
     <li *ngFor="let hafen of similarHaefen" (click)="selectHafen(hafen)">{{ hafen }}</li>
@@ -26,11 +27,13 @@
         </div>
       </div>
 
-      <div *ngIf="schiff === selectedSchiff && detailInserted[i]" class="card-details-container" (ngInit)="setDetailInserted(i)">
+      <div *ngIf="schiff === selectedSchiff && detailInserted[i]" class="card-details-container"
+        (ngInit)="setDetailInserted(i)">
         <div class="card-details">
           <div class="details-image">
             <div class="slideshow-container">
-              <div *ngFor="let bild of selectedSchiff?.bildUrls; let j = index" class="mySlides" [ngClass]="{'active': j === currentSlides[i]}">
+              <div *ngFor="let bild of selectedSchiff?.bildUrls; let j = index" class="mySlides"
+                [ngClass]="{'active': j === currentSlides[i]}">
                 <img [src]="bild" alt="{{ selectedSchiff.name }}">
               </div>
               <a class="prev" (click)="plusSlides(-1, i)">&#10094;</a>

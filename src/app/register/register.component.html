@@ -13,13 +13,15 @@
       <input type="text" id="username" placeholder="Benutzername" formControlName="username" />
     </div>
     <div class="form-group password-field">
-      <input [type]="hidePassword ? 'password' : 'text'" id="password" placeholder="Passwort" formControlName="password" />
+      <input [type]="hidePassword ? 'password' : 'text'" id="password" placeholder="Passwort"
+        formControlName="password" />
       <button type="button" class="visibility-btn" (click)="togglePasswordVisibility('password')">
         <fa-icon [icon]="hidePassword ? faEyeSlash : faEye" />
       </button>
     </div>
     <div class="form-group password-field">
-      <input [type]="hideConfirmPassword ? 'password' : 'text'" id="confirm-password" placeholder="Passwort bestätigen" formControlName="confirmPassword" />
+      <input [type]="hideConfirmPassword ? 'password' : 'text'" id="confirm-password" placeholder="Passwort bestätigen"
+        formControlName="confirmPassword" />
       <button type="button" class="visibility-btn" (click)="togglePasswordVisibility('confirmPassword')">
         <fa-icon [icon]="hideConfirmPassword ? faEyeSlash : faEye" />
       </button>
@@ -34,4 +36,3 @@
 
 
 </div>
-

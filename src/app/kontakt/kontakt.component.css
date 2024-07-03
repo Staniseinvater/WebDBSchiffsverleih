@@ -48,7 +48,8 @@
   top: 40vh;
 }
 
-.contact-box, .contact-box-email {
+.contact-box,
+.contact-box-email {
   background: white;
   align-content: center;
   padding: 20px;
@@ -61,25 +62,29 @@
   margin: 0 10px;
 }
 
-.contact-box h2, .contact-box-email h2 {
+.contact-box h2,
+.contact-box-email h2 {
   margin: 10px 0;
   font-size: 1.5em;
   padding: 5%;
 }
 
-.contact-box p, .contact-box-email p {
+.contact-box p,
+.contact-box-email p {
   margin: 10px 0;
   color: #555;
   padding: 5%;
 }
 
-.phone-number a, .email-address a {
+.phone-number a,
+.email-address a {
   color: #007bff;
   font-weight: bold;
   text-decoration: none;
 }
 
-.phone-number a:hover, .email-address a:hover {
+.phone-number a:hover,
+.email-address a:hover {
   text-decoration: underline;
 }
 
@@ -87,6 +92,7 @@
   color: blue;
 }
 
-h1, .text {
+h1,
+.text {
   color: white;
 }

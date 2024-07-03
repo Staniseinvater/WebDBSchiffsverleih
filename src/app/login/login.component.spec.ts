@@ -11,7 +11,7 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LoginComponent, FontAwesomeModule],
     }).compileComponents();
-    
+
     const library = TestBed.inject(FaIconLibrary);
     library.addIconPacks(fas);
 

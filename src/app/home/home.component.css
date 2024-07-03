@@ -1,4 +1,3 @@
-/* Header Styling */
 .header {
     position: relative;
     height: 100vh;
@@ -72,7 +71,7 @@
     justify-content: center;
 }
 
-/* Service Cards */
+
 .service-card {
     background: #fff;
     border: 1px solid #e6e6e6;
@@ -115,14 +114,15 @@
     font-size: 0.9rem;
 }
 
-/* Media Queries for Responsive Adjustments */
+
 @media (max-width: 768px) {
     .service-card {
         flex: 1 1 calc(50% - 20px);
         max-width: calc(50% - 20px);
     }
 
-    .header .title, .header .subtitle {
+    .header .title,
+    .header .subtitle {
         font-size: calc(1rem + 2vw);
     }
 }
@@ -141,12 +141,13 @@
         font-size: 1rem;
     }
 
-    .card-title, .card-body h6 {
+    .card-title,
+    .card-body h6 {
         font-size: 1.1rem;
     }
 }
 
-/* Testimonials Section Styling */
+
 .testimonials {
     position: relative;
     height: 50vh;
@@ -172,7 +173,7 @@
     min-width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center; /* Zentriere den Inhalt horizontal */
+    justify-content: center;
 }
 
 .testimonial-content {
@@ -181,7 +182,7 @@
     border-radius: 10px;
     max-width: 80%;
     text-align: center;
-    color: #fff; /* Textfarbe */
+    color: #fff;
 }
 
 .testimonial-content p {
@@ -195,7 +196,7 @@
     font-style: italic;
 }
 
-/* Add Comment Section Styling */
+
 .add-comment .form-group {
     margin-bottom: 15px;
 }
@@ -227,12 +228,14 @@
     background-color: #0056b3;
 }
 
-/* Responsive Styles for Add Comment Section */
 @media (max-width: 768px) {
-    .add-comment .form-control, .add-comment .btn-primary {
+
+    .add-comment .form-control,
+    .add-comment .btn-primary {
         width: 100%;
     }
 }
+
 form {
     max-width: 600px;
     margin: 20px auto;
@@ -240,60 +243,58 @@ form {
     border: 1px solid #ddd;
     border-radius: 8px;
     background: #fff;
-  }
-  
-  form div {
+}
+
+form div {
     margin-bottom: 10px;
-  }
-  
-  form label {
+}
+
+form label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  form input,
-  form textarea {
+}
+
+form input,
+form textarea {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
-  }
-  
-  form button {
+}
+
+form button {
     padding: 10px 20px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  form button:hover {
-    background-color: #0056b3;
-  }
+}
 
-  .button-group {
+form button:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
 
 #ausloggen-btn {
     margin: 10px;
-    background-color: red; 
-    color: white; 
-    border: none; 
-    padding: 15px 30px; 
-    cursor: pointer; 
-    border-radius: 5px; 
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 #ausloggen-btn:hover {
-    background-color: darkred; 
+    background-color: darkred;
 }
 
 .welcome-message {
     text-align: center;
     padding: 10px;
     margin-bottom: 20px;
-  }
-
-  
+}

@@ -37,7 +37,7 @@ export class BookingFormDialogComponent implements OnInit {
     private benutzerService: BenutzerService,
     private snackBar: MatSnackBar
   ) {
-    console.log('Received data in dialog:', data); // Log the data received
+    console.log('Received data in dialog:', data);
     this.bookingForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
@@ -57,10 +57,10 @@ export class BookingFormDialogComponent implements OnInit {
         console.error('Fehler beim Laden der Häfen:', error);
       }
     });
-  
+
     this.loadBookedDates(this.data.schiffId);
   }
-  
+
   loadBookedDates(schiffId: number) {
     this.benutzerService.getBookedDates(schiffId).subscribe({
       next: (dates: { startDate: string, endDate: string }[]) => {
@@ -77,12 +77,12 @@ export class BookingFormDialogComponent implements OnInit {
       error: (err) => console.error('Failed to load booked dates', err)
     });
   }
-  
+
   myDateFilter = (d: Date | null): boolean => {
     const date = (d || new Date()).setHours(0, 0, 0, 0);
     return !this.bookedDates.some(booked => booked.setHours(0, 0, 0, 0) === date);
   };
-  
+
 
   openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
     this.snackBar.open(message, action, config);
@@ -92,39 +92,39 @@ export class BookingFormDialogComponent implements OnInit {
     if (this.bookingForm.valid) {
       const startDate = this.bookingForm.get('startDate')?.value;
       const endDate = this.bookingForm.get('endDate')?.value;
-  
+
       if (!startDate || !endDate) {
         this.openSnackBar('Bitte wählen Sie ein Datum aus', 'Schließen', {
           duration: 3000,
           panelClass: ['error-snackbar']
         });
-        return; // Exit the function if dates are not filled
+        return;
       }
-  
-      console.log('Booking form data:', this.bookingForm.value); // Log form data
-  
+
+      console.log('Booking form data:', this.bookingForm.value);
+
       this.benutzerService.updateSchiffHafen(this.data.schiffId, this.bookingForm.value.zielHafen).subscribe({
         next: (updateResponse) => {
-          console.log('Update response:', updateResponse); // Log response
-  
+          console.log('Update response:', updateResponse);
+
           const formatDate = (date: Date): string => {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
           };
-  
+
           const bookingData = {
-            ...this.bookingForm.getRawValue(), // Get all form data including disabled fields
+            ...this.bookingForm.getRawValue(),
             schiffId: this.data.schiffId,
             startDate: formatDate(this.bookingForm.getRawValue().startDate),
             endDate: formatDate(this.bookingForm.getRawValue().endDate),
-            zielHafenName: this.haefen.find(hafen => hafen.id === this.bookingForm.value.zielHafen)?.name // Add the name of the new harbor
+            zielHafenName: this.haefen.find(hafen => hafen.id === this.bookingForm.value.zielHafen)?.name
           };
-  
+
           this.benutzerService.addAusleihen(bookingData).subscribe({
             next: (bookingResponse) => {
-              console.log('Booking response:', bookingResponse); // Log response
+              console.log('Booking response:', bookingResponse);
               this.dialogRef.close(bookingData);
             },
             error: (bookingError) => {

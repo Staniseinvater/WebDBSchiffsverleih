@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   private subscription: Subscription = new Subscription();
 
 
-  constructor(private benutzerService: BenutzerService, private snackBar: MatSnackBar) {}
+  constructor(private benutzerService: BenutzerService, private snackBar: MatSnackBar) { }
 
   openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
     this.snackBar.open(message, action, config);
