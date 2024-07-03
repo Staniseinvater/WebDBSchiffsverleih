@@ -86,7 +86,6 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    this.newComment.author = this.userName;
 
     this.benutzerService.addComment(this.newComment).subscribe(
       response => {
