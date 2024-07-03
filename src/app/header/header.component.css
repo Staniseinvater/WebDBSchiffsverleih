@@ -1,7 +1,7 @@
 /* Header Styling */
 header {
   background-color: #ffffff;
-  padding: 25px 0;
+  padding: 10px 0;
   position: fixed;
   top: 0;
   width: 100%;
@@ -24,22 +24,23 @@ header {
 /* Navigation Styling */
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
+
+.navbar-brand {
+  cursor: auto;
+}
+
 
 nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
-  gap: 30px;
+  gap: 20px;
 }
 
-nav ul li {
-  margin: 0;
-}
 
 nav ul li a {
   color: #005c85;
@@ -54,18 +55,11 @@ nav ul li a:hover {
   background-color: #f0f8ff; /* Very light blue */
 }
 
-/* Login and Register button styles */
-.login-button, .register-button {
-  color: #005c85;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  background-color: transparent;
+/* Icon padding */
+.icon-padding {
+  margin-right: 8px;
 }
 
-.login-button:hover, .register-button:hover {
-  background-color: #f0f8ff; /* Very light blue */
-}
 
 /* Profile icon styles */
 .profile-icon {
