@@ -19,15 +19,15 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  hidePassword: boolean = true; 
-  faEye = faEye; 
-  faEyeSlash = faEyeSlash; 
+  hidePassword: boolean = true;
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
 
   constructor(
     private fb: FormBuilder,
     private benutzerService: BenutzerService,
     private router: Router,
-    private snackBar: MatSnackBar // Inject MatSnackBar here
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
-  
+
   openSnackBar(message: string, action: string, config?: MatSnackBarConfig) {
     this.snackBar.open(message, action, config);
   }
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.benutzerService.login(this.loginForm.value).subscribe({
       next: (response) => {
         console.log(response);
-        localStorage.setItem('token', response.token); // Token speichern
+        localStorage.setItem('token', response.token);
         this.openSnackBar('Sie sind erfolgreich eingeloggt', 'Schließen', {
           duration: 3000,
           panelClass: ['success-snackbar']

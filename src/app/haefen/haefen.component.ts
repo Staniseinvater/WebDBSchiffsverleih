@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';  // Import Router
+import { RouterModule, Router } from '@angular/router';
 import { BenutzerService } from '../benutzerservice/benutzerservice.component';
 
 export interface Hafen {
@@ -35,8 +35,8 @@ export class HaefenComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private benutzerService: BenutzerService,
-    private router: Router  // Inject Router
-  ) {}
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadHaefen();
@@ -54,7 +54,7 @@ export class HaefenComponent implements OnInit {
     this.benutzerService.getHaefen().subscribe({
       next: (hafens) => {
         this.hafens = hafens;
-        this.filteredHafens = of(this.hafens); // Initialize with all hafens
+        this.filteredHafens = of(this.hafens);
         this.updateGlobus('');
       },
       error: (err) => console.error('Failed to load haefen', err)
@@ -68,7 +68,7 @@ export class HaefenComponent implements OnInit {
 
   onSearch(event: any): void {
     const query = event.target.value.toLowerCase();
-    this.filteredHafens = of(this._filter(query)); // Update filteredHafens based on search query
+    this.filteredHafens = of(this._filter(query));
     this.updateGlobus(query);
   }
 

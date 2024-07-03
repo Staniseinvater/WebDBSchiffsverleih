@@ -5,20 +5,18 @@
   <button class="burger-menu" aria-label="Toggle navigation" (click)="toggleMenu()">&#9776;</button>
   <nav [class.open]="menuOpen">
     <a class="navbar-brand" href="/">
-      <img
-      src="../assets/icon.png"
-      height="50"
-      width="70"
-      alt=""
-      loading="lazy"
-  />
+      <img src="../assets/icon.png" height="50" width="70" alt="" loading="lazy" />
     </a>
     <div class="container">
-      <ul class = "nav-list">
-        <li><a routerLink="/" (click)="closeMenu()"><i class="fas fa-home icon-padding" style="margin-right: 8px;"></i>Home</a></li>
-        <li><a routerLink="/schiffe" (click)="closeMenu()"><i class="fas fa-ship icon-padding" style="margin-right: 8px;"></i>Schiffe</a></li>
-        <li><a routerLink="/haefen" (click)="closeMenu()"><i class="fas fa-anchor icon-padding" style="margin-right: 8px;"></i>Häfen</a></li>
-        <li><a routerLink="/kontakt" (click)="closeMenu()"><i class="fas fa-envelope icon-padding" style="margin-right: 8px;"></i>Kontakt</a></li>
+      <ul class="nav-list">
+        <li><a routerLink="/" (click)="closeMenu()"><i class="fas fa-home icon-padding"
+              style="margin-right: 8px;"></i>Home</a></li>
+        <li><a routerLink="/schiffe" (click)="closeMenu()"><i class="fas fa-ship icon-padding"
+              style="margin-right: 8px;"></i>Schiffe</a></li>
+        <li><a routerLink="/haefen" (click)="closeMenu()"><i class="fas fa-anchor icon-padding"
+              style="margin-right: 8px;"></i>Häfen</a></li>
+        <li><a routerLink="/kontakt" (click)="closeMenu()"><i class="fas fa-envelope icon-padding"
+              style="margin-right: 8px;"></i>Kontakt</a></li>
         <ng-container *ngIf="isLoggedIn">
           <li class="profile-menu">
             <a href="javascript:void(0);" (click)="toggleProfileMenu()" class="profile-icon" aria-label="Profile">
@@ -35,8 +33,10 @@
           </li>
         </ng-container>
         <ng-container *ngIf="!isLoggedIn">
-          <li><a routerLink="/login" (click)="closeMenu()" class="login-button"><i class="fas fa-sign-in-alt icon-padding"></i> Login</a></li>
-          <li><a routerLink="/register" (click)="closeMenu()" class="register-button"><i class="fas fa-user-plus icon-padding"></i> Registrieren</a></li>
+          <li><a routerLink="/login" (click)="closeMenu()" class="login-button"><i
+                class="fas fa-sign-in-alt icon-padding"></i> Login</a></li>
+          <li><a routerLink="/register" (click)="closeMenu()" class="register-button"><i
+                class="fas fa-user-plus icon-padding"></i> Registrieren</a></li>
         </ng-container>
       </ul>
     </div>

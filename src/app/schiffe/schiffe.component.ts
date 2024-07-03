@@ -58,7 +58,7 @@ export class SchiffeComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: MatDialog,
     private benutzerService: BenutzerService,
-    private snackBar: MatSnackBar // Inject MatSnackBar here
+    private snackBar: MatSnackBar
   ) {
     this.range = this.fb.group({
       start: [],
@@ -73,11 +73,10 @@ export class SchiffeComponent implements OnInit {
   ngOnInit() {
     this.loadSchiffe();
 
-    // Abonniere WebSocket-Events
     this.benutzerService.onTicketUpdate().subscribe({
       next: (data) => {
         console.log('Ticket Update:', data);
-        this.loadSchiffe(); // Aktualisieren Sie die Schiffsliste bei einem Ticket-Update
+        this.loadSchiffe();
       },
       error: (err) => console.error('Error receiving ticket updates', err)
     });
@@ -85,7 +84,7 @@ export class SchiffeComponent implements OnInit {
     this.benutzerService.onNewComment().subscribe({
       next: (data) => {
         console.log('New Comment:', data);
-        this.loadComments(); // Aktualisieren Sie die Kommentarliste bei neuen Kommentaren
+        this.loadComments();
       },
       error: (err) => console.error('Error receiving new comments', err)
     });
@@ -94,11 +93,11 @@ export class SchiffeComponent implements OnInit {
   loadSchiffe() {
     this.benutzerService.getSchiffe().subscribe({
       next: (schiffe: Schiff[]) => {
-        console.log('Fetched schiffe:', schiffe); // Debugging line
+        console.log('Fetched schiffe:', schiffe);
         this.hafens = this.transformToHafens(schiffe);
         this.similarHaefen = this.hafens.map(hafen => hafen.name);
-        console.log('Hafens:', this.hafens); // Debugging line
-        console.log('Similar Hafens:', this.similarHaefen); // Debugging line
+        console.log('Hafens:', this.hafens);
+        console.log('Similar Hafens:', this.similarHaefen);
       },
       error: (err) => console.error('Failed to load schiffe', err)
     });
@@ -108,7 +107,7 @@ export class SchiffeComponent implements OnInit {
     this.benutzerService.getComments().subscribe({
       next: (comments) => {
         console.log('Fetched comments:', comments);
-        // Implementieren Sie die Logik zum Aktualisieren der Kommentare hier
+
       },
       error: (err) => console.error('Failed to load comments', err)
     });
@@ -163,7 +162,7 @@ export class SchiffeComponent implements OnInit {
     } else {
       this.selectedSchiff = schiff;
       this.detailInserted[index] = true;
-      this.loadBookedDates(schiff.id); // Lade die gebuchten Daten für das ausgewählte Schiff
+      this.loadBookedDates(schiff.id);
     }
   }
 
@@ -192,7 +191,7 @@ export class SchiffeComponent implements OnInit {
   openForm(schiff: Schiff) {
     const startDate = this.range.controls['start'].value;
     const endDate = this.range.controls['end'].value;
-  
+
     if (!this.benutzerService.isLoggedIn()) {
       this.openSnackBar('Sie müssen angemeldet sein, um das Formular zum Buchen auszufüllen', 'Schließen', {
         duration: 3000,
@@ -200,13 +199,13 @@ export class SchiffeComponent implements OnInit {
       });
       return;
     }
-  
-    // Load booked dates and then check for conflicts
+
+
     this.loadBookedDates(schiff.id);
-  
-    // Delay the execution to wait for bookedDates to be populated
+
+
     setTimeout(() => {
-      // Check for date conflicts
+
       if (this.checkDateConflict(startDate, endDate)) {
         this.openSnackBar('Das Schiff ist bereits in dem ausgewählten Zeitraum gebucht', 'Schließen', {
           duration: 3000,
@@ -214,27 +213,27 @@ export class SchiffeComponent implements OnInit {
         });
         return;
       }
-  
+
       const dialogRef = this.dialog.open(BookingFormDialogComponent, {
         width: '400px',
         data: {
           startDate,
           endDate,
-          schiffId: schiff.id // Übergeben Sie die schiffId
+          schiffId: schiff.id
         }
       });
-  
+
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          console.log('Form result:', result); // Log form result
-  
-          // Find the ship's current harbor and remove it from there
+          console.log('Form result:', result);
+
+
           const currentHafen = this.hafens.find(h => h.schiffe!.some(s => s.id === result.schiffId));
           if (currentHafen) {
             currentHafen.schiffe = currentHafen.schiffe!.filter(s => s.id !== result.schiffId);
           }
-  
-          // Add the ship to the new harbor
+
+
           const newHafen = this.hafens.find(h => h.id === result.zielHafen);
           if (newHafen) {
             const movedSchiff = this.filteredSchiffe.find(s => s.id === result.schiffId);
@@ -244,23 +243,21 @@ export class SchiffeComponent implements OnInit {
               newHafen.schiffe!.push(movedSchiff);
             }
           }
-  
-          // Close the details card
+
+
           this.selectedSchiff = null;
-  
-          // Reload the ships to reflect changes
+
           this.loadSchiffe();
-  
-          // Show success snackbar
+
           this.openSnackBar(`Buchung erfolgreich, das Schiff befindet sich nun im ${newHafen?.name} Hafen`, 'Schließen', {
             duration: 3000,
             panelClass: ['success-snackbar']
           });
         }
       });
-    }, 1000); // Adjust the delay as needed to ensure `bookedDates` are loaded
+    }, 1000);
   }
-  
+
   checkDateConflict(startDate: Date, endDate: Date): boolean {
     return this.bookedDates.some(bookedDate => {
       return (
@@ -287,11 +284,11 @@ export class SchiffeComponent implements OnInit {
       error: (err) => console.error('Failed to load booked dates', err)
     });
   }
-  
+
   myDateFilter = (d: Date | null): boolean => {
     const date = (d || new Date()).setHours(0, 0, 0, 0);
     return !this.bookedDates.some(booked => booked.setHours(0, 0, 0, 0) === date);
   };
-  
+
 
 }
