@@ -59,6 +59,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
+      this.openErrorSnackBar('Die Passwörter stimmen nicht überein!');
+      return;
+    }
+    
     this.benutzerService.register(this.registerForm.value).subscribe({
       next: (response) => {
         this.openSuccessSnackBar('Sie sind erfolgreich registriert');
